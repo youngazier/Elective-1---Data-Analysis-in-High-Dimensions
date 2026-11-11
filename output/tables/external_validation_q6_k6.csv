@@ -1,0 +1,7 @@
+"Cluster","Archetype","x.n","x.Mean","x.SD","x.Median","x.IQR"
+1,"C1: Cross-AI & Peer Triangulators",46,3.67,2.04,3,2.75
+2,"C2: Same-AI Conversationalists",49,4.63,1.95,5,3
+3,"C3: Independent Problem-Solvers",60,3.9,2.3,4,4
+4,"C4: Course-Material Verifiers",68,4.41,1.96,5,3
+5,"C5: Uncritical AI Conformers",20,2.85,1.95,3,3
+6,"C6: AI-Skeptical Anchors",18,4.44,2.43,5,4.75
