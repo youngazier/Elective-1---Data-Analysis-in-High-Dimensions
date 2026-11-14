@@ -208,12 +208,12 @@ df <- raw_df[trimws(raw_df$S1_Enrolled) == "Yes" & trimws(raw_df$S2_Consent) == 
 ```
 - `trimws()` removes leading and trailing spaces.
 - `df[rows, cols]`: the condition chooses rows, and the empty spot after the comma means "all columns".
-- `&` is element-wise AND. Only students who are enrolled **and** consented are kept (this gives n = 261).
+- `&` is element-wise AND. Only students who are enrolled **and** consented are kept (this gives n = 263).
 
 ```r
 df$ID <- sprintf("R%03d", seq_len(nrow(df)))
 ```
-- `seq_len(261)` = 1, 2, …, 261. `sprintf("R%03d", 7)` = `"R007"` (3 digits, zero-padded). Each student gets an ID.
+- `seq_len(263)` = 1, 2, …, 263. `sprintf("R%03d", 7)` = `"R007"` (3 digits, zero-padded). Each student gets an ID.
 
 ### Mapping functions `map_q1` … `map_q5`
 ```r
@@ -271,12 +271,12 @@ write.csv(marginal_df, file.path(tab_dir, "marginal_q1_q5.csv"), row.names = FAL
 
 ```r
 df_q <- df[, q_cols]          # only the 5 factor columns
-rownames(df_q) <- df$ID       # rows labelled R001..R261 (used later for matching)
+rownames(df_q) <- df$ID       # rows labelled R001..R263 (used later for matching)
 dist_hamming <- daisy(df_q, metric = "gower")
 dist_vec <- as.numeric(dist_hamming)
 ```
 - `daisy()` with Gower on **factor** columns gives, per variable, 0 if equal and 1 if different, then averages over the 5 variables. That is exactly the normalized Hamming distance (§1.1).
-- The result is a `dist` object (lower triangle only). `as.numeric` flattens it into a vector of the 261·260/2 = **33,930** pairwise distances.
+- The result is a `dist` object (lower triangle only). `as.numeric` flattens it into a vector of the 263·262/2 = **34,453** pairwise distances.
 
 ```r
 hc_single   <- hclust(dist_hamming, method = "single")
@@ -321,7 +321,7 @@ Columns written to `linkage_k_evaluation.csv`:
 ```r
 set.seed(20261111)
 n_perm <- 100; n_sub <- 100
-sub_size <- floor(0.80 * nrow(df_q))     # 80% of 261 = 208 students
+sub_size <- floor(0.80 * nrow(df_q))     # 80% of 263 = 210 students
 ```
 The seed is reset so this section is reproducible on its own.
 
@@ -331,7 +331,7 @@ For each method and each K = 2..6:
 ```r
 cl_full <- cutree(hc_full, k = k); names(cl_full) <- rownames(df_q)
 for (b in 1:100) {
-  perm_idx <- sample(seq_len(nrow(df_q)))        # random shuffle of 1..261
+  perm_idx <- sample(seq_len(nrow(df_q)))        # random shuffle of 1..263
   df_perm  <- df_q[perm_idx, , drop = FALSE]     # same data, different row order
   d_perm   <- daisy(df_perm, metric = "gower")
   hc_perm  <- hclust(d_perm, method = m_code)
@@ -425,14 +425,14 @@ Common base-R plotting vocabulary:
 | Figure | What it shows | Code notes |
 |---|---|---|
 | **fig01_marginal_responses** | Grouped bars: % choosing each option, per question | Builds a 6 × 5 matrix `mat_pct` (options × questions). `beside = TRUE` puts bars side by side instead of stacked. `bp` holds the bar x-positions, used to place the `"%.0f%%"` labels (`%%` prints a literal `%`). Legend is pushed outside with `inset = c(-0.22, 0)`. |
-| **fig02_hamming_distribution** | % of the 33,930 pairs at d = 0, 0.2, …, 1 | `round(dist_vec, 1)` removes floating-point noise. Wrapping it in `factor(levels=…)` makes all 6 bars appear even when a count is 0. Labels show the % and the count. |
-| **fig03_dendrograms_comparison** | 3 dendrograms side by side | `labels = FALSE` hides the 261 IDs. `hang = -1` makes all leaves end at height 0. `rect.hclust(k = 6)` draws boxes around the 6 clusters. The dashed line at 0.35 on the single-linkage tree is a visual reference cut. |
+| **fig02_hamming_distribution** | % of the 34,453 pairs at d = 0, 0.2, …, 1 | `round(dist_vec, 1)` removes floating-point noise. Wrapping it in `factor(levels=…)` makes all 6 bars appear even when a count is 0. Labels show the % and the count. |
+| **fig03_dendrograms_comparison** | 3 dendrograms side by side | `labels = FALSE` hides the 263 IDs. `hang = -1` makes all leaves end at height 0. `rect.hclust(k = 6)` draws boxes around the 6 clusters. The dashed line at 0.35 on the single-linkage tree is a visual reference cut. |
 | **fig04_silhouette_comparison** | Left: avg silhouette vs K. Right: largest-cluster % vs K | Reads values back from `eval_df`. `points(6, …, cex = 2)` circles the chosen K = 6. The right panel exposes chaining (single linkage near 100%). |
 | **fig05_stability_ari** | Left: boxplots of subsample ARI (Average, K = 2..6). Right: mean permutation ARI per method | `boxplot(list)` gives one box per list element. Red diamonds = means (`sapply(list, mean)`). `xaxt = "n"` hides the default x axis, and `axis(1, at = ks)` draws integer ticks only. |
 | **fig06_cluster_profiles** | 2 × 3 grid: answer profile of each K = 6 cluster | Same logic as fig01 but within each cluster. Legend only in panel 1. |
 | **fig07_external_validation** | Left: Q6 boxplot per cluster plus means. Right: stacked bars of study year per cluster | `Q6_Num ~ Cluster_K6` is formula syntax meaning "Q6 grouped by cluster". `tapply` computes the group means, drawn as a white diamond under a black one (an outline effect). `t(s4_ct_k6)` transposes so the years stack inside each cluster bar, and `margin = 2` gives column percentages. |
 
-> ⚠️ **Hard-coded numbers:** some titles and labels are typed in by hand rather than computed: `n = 261`, `33,930 Pairs`, cluster sizes (`n=46, 17.6%` …), `Kruskal-Wallis p = 0.0147, ANOVA p = 0.0130`, `Chi-square = 76.66, p = 0.0001`. The statistical tests themselves are **not run in this script** (they presumably came from a separate analysis; see `STATS_EXPLAINED.md`). If the data changes, update these strings by hand. The same goes for the hard-coded `ylim` ranges.
+> ⚠️ **Hard-coded numbers:** some titles and labels are typed in by hand rather than computed: `n = 263`, `34,453 Pairs`, cluster sizes (`n=46, 17.5%` …), `Kruskal-Wallis p = 0.0103, ANOVA p = 0.0089`, `Chi-square = 77.04, p = 0.0001`. The statistical tests themselves are **not run in this script** (they presumably came from a separate analysis; see `STATS_EXPLAINED.md`). If the data changes, update these strings by hand. The same goes for the hard-coded `ylim` ranges.
 
 ```r
 cat("\nAll figures and CSV tables successfully generated in:", out_dir, "\n")
@@ -536,7 +536,7 @@ next_id    = n                                     # new clusters get ids n, n+1
 
 Returns `partitions` (dict K → labels) and `merge_heights` (the n − 1 heights at which merges happened).
 
-> Complexity is about O(n³) (n merges × O(n²) pair scan). That is fine for n = 261, too slow for large data.
+> Complexity is about O(n³) (n merges × O(n²) pair scan). That is fine for n = 263, too slow for large data.
 
 ## B.7 `average_silhouette(dist_matrix, labels)` (lines 213–241)
 Direct implementation of §1.3:
@@ -556,11 +556,11 @@ Same formula as the R helper (§1.4):
 
 ## B.9 `main()` (lines 271–320): what gets printed
 
-1. **Sample size**: `Loaded and cleaned n = 261 ...`
+1. **Sample size**: `Loaded and cleaned n = 263 ...`
 2. **Unique profiles**: `Counter(r["Q"] ...)` counts distinct 5-letter patterns out of 5400 possible. Few repeats means the data is sparse, which explains why clusters are fuzzy.
-3. **Distance distribution**: rounds all 33,930 pairwise distances to 1 decimal, then prints the count and % at each of 0.0…1.0 plus the mean and SD. This should match Figure 2.
+3. **Distance distribution**: rounds all 34,453 pairwise distances to 1 decimal, then prints the count and % at each of 0.0…1.0 plus the mean and SD. This should match Figure 2.
 4. **For each linkage**: runs the clustering and prints
-   - `Unique merge heights: x / 260`: very few unique heights means **lots of ties**.
+   - `Unique merge heights: x / 262`: very few unique heights means **lots of ties**.
    - For K = 2..8: average silhouette (`+.4f` = always show the sign, 4 decimals), negative-silhouette count and %, and cluster sizes sorted large to small. These should match `linkage_k_evaluation.csv` from R.
 5. **Cross-check with R** (only if `output/tables/cleaned_responses.csv` exists):
    - `csv.DictReader` reads the rows as dicts keyed by column name.

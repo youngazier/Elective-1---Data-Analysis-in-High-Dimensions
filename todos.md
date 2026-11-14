@@ -14,17 +14,17 @@
 ---
 
 ## Phase 1: Data Cleaning & Preprocessing
-- [x] **1.1 Load raw survey responses** from `When AI Disagrees With You_ How University Students Respond to Uncertain AI Answers (Responses) - Form Responses 1.csv` ($N = 261$ total rows).
-- [x] **1.2 Verify eligibility & consent ($S_1, S_2$):** Confirm all respondents answered `Yes` to $S_1$ (currently enrolled university student) and $S_2$ (voluntary consent). Retain $n = 261$ complete responses.
-- [x] **1.3 Assign anonymous respondent IDs:** Generate sequential IDs (`R001` to `R261`) and remove timestamps before clustering.
+- [x] **1.1 Load raw survey responses** from `When AI Disagrees With You_ How University Students Respond to Uncertain AI Answers (Responses) - Form Responses 1.csv` ($N = 263$ total rows).
+- [x] **1.2 Verify eligibility & consent ($S_1, S_2$):** Confirm all respondents answered `Yes` to $S_1$ (currently enrolled university student) and $S_2$ (voluntary consent). Retain $n = 263$ complete responses.
+- [x] **1.3 Assign anonymous respondent IDs:** Generate sequential IDs (`R001` to `R263`) and remove timestamps before clustering.
 - [x] **1.4 Standardize & harmonize $Q_1$–$Q_5$ categorical labels (`A`–`F` / `A`–`E`):**
-  - **Crucial Data Cleaning Fix in $Q_1$:** Harmonize the two wording variants of Option D (`"Ask a different AI the same question again."` [$n=28$] and `"Ask a different AI the original question."` [$n=13$]) into a single category `D` ($n=41$), ensuring $Q_1$ has the exact 6 options (`A`–`F`).
+  - **Crucial Data Cleaning Fix in $Q_1$:** Harmonize the two wording variants of Option D (`"Ask a different AI the same question again."` [$n=29$] and `"Ask a different AI the original question."` [$n=13$]) into a single category `D` ($n=42$), ensuring $Q_1$ has the exact 6 options (`A`–`F`).
   - Map $Q_1, Q_2, Q_5$ to unordered factor levels `A`–`F` (6 options each) and $Q_3, Q_4$ to unordered factor levels `A`–`E` (5 options each).
 - [x] **1.5 Clean external validation & demographic variables ($S_3, S_4, Q_6$):**
   - $S_4$ (Year of Study): Order levels (`1st year`, `2nd year`, `3rd year`, `4th year`, `Graduate / Master's student`, plus `Missing / Prefer not to answer` for the 6 blank entries).
-  - $Q_6$ (AI Usage Frequency in past 7 days): Parse as integer/ordinal $0, 1, \dots, 7$ (complete for all $n=261$ respondents).
+  - $Q_6$ (AI Usage Frequency in past 7 days): Parse as integer/ordinal $0, 1, \dots, 7$ (complete for all $n=263$ respondents).
   - $S_3$ (Major at VGU): Clean blank strings ($78$ blanks) into `Unspecified / Prefer not to answer` for descriptive sample reporting.
-- [x] **1.6 Check identical response profiles:** Count unique 5-question response patterns across the $n = 261$ students (keep duplicate profiles in the dataset as real observations representing common student habits).
+- [x] **1.6 Check identical response profiles:** Count unique 5-question response patterns across the $n = 263$ students (keep duplicate profiles in the dataset as real observations representing common student habits).
 
 ---
 
@@ -36,9 +36,9 @@
 ---
 
 ## Phase 3: Dissimilarity Matrix & Agglomerative Hierarchical Clustering
-- [x] **3.1 Compute Normalized Hamming / Gower Distance Matrix ($261 \times 261$):**
+- [x] **3.1 Compute Normalized Hamming / Gower Distance Matrix ($263 \times 263$):**
   - Use `cluster::daisy(df_q, metric = "gower")` in R and `scipy.spatial.distance.pdist(..., metric="hamming")` in Python.
-  - Verify that all $\binom{261}{2} = 33{,}930$ pairwise distances lie in $\{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$.
+  - Verify that all $\binom{263}{2} = 34{,}453$ pairwise distances lie in $\{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$.
   - Plot the distribution of pairwise Hamming distances (`fig02_hamming_distribution.pdf`).
 - [x] **3.2 Build Agglomerative Dendrograms (`stats::hclust` / `scipy.cluster.hierarchy.linkage`):**
   - **Single Linkage** (`method = "single"`): $d_{12} = \min_{i,j} d(\vec{X}_i, \vec{Y}_j)$

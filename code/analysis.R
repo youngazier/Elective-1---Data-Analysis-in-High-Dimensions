@@ -338,7 +338,7 @@ save_dual_plot("fig01_marginal_responses", 8.5, 4.8, function() {
   cols <- c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02")
   bp <- barplot(mat_pct, beside = TRUE, col = cols, ylim = c(0, 48),
                 ylab = "Percentage of Respondents (%)",
-                main = "Marginal Distribution of Student Responses Across Scenarios Q1-Q5 (n = 261)",
+                main = "Marginal Distribution of Student Responses Across Scenarios Q1-Q5 (n = 263)",
                 las = 1, cex.names = 0.88, cex.axis = 0.9, cex.main = 1.05, border = "white")
   abline(h = seq(10, 40, by = 10), col = "gray88", lty = 2)
   barplot(mat_pct, beside = TRUE, col = cols, ylim = c(0, 48), add = TRUE,
@@ -364,7 +364,7 @@ save_dual_plot("fig02_hamming_distribution", 7.5, 4.5, function() {
   bp <- barplot(dist_pct, col = "#386cb0", border = "white", ylim = c(0, 45),
                 xlab = "Normalized Hamming / Gower Distance d(X_i, X_j)",
                 ylab = "Percentage of Respondent Pairs (%)",
-                main = "Distribution of Pairwise Normalized Hamming Distances (33,930 Pairs)",
+                main = "Distribution of Pairwise Normalized Hamming Distances (34,453 Pairs)",
                 las = 1)
   grid(nx = NA, ny = NULL, col = "gray88", lty = 2)
   barplot(dist_pct, col = "#386cb0", border = "white", ylim = c(0, 45), add = TRUE, axes = FALSE)
@@ -390,6 +390,93 @@ save_dual_plot("fig03_dendrograms_comparison", 11.0, 4.2, function() {
        main = sprintf("Average Linkage / UPGMA\n(Cophenetic r = %.3f)", coph_average),
        xlab = "", sub = "", ylab = "Normalized Hamming Distance", ylim = c(0, 1.05))
   rect.hclust(hc_average, k = 6, border = "#d95f02")
+})
+
+# Helper to draw a full-view annotated dendrogram with K = 6 boxes
+plot_full_dendrogram <- function(hc, title_str, tree_col, cut_line_h,
+                                 cluster_ids = NULL, cl_map = NULL) {
+  par(mar = c(3.6, 4.6, 4.2, 1.5), xpd = NA)
+  plot(hc, labels = FALSE, hang = -1, col = tree_col,
+       main = title_str, xlab = "", sub = "",
+       ylab = "Normalized Hamming Distance (Merge Height)",
+       ylim = c(-0.08, 1.08), las = 1, cex.main = 1.15, cex.lab = 1.0)
+  par(xpd = FALSE)
+  abline(h = seq(0, 1, by = 0.2), col = "gray88", lty = 3)
+  abline(h = cut_line_h, col = "#d95f02", lty = 2, lwd = 1.8)
+
+  box_cols <- c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#a65628")
+  rects <- rect.hclust(hc, k = 6, border = box_cols)
+
+  # Compute x-centers of each rectangle in dendrogram order
+  x_start <- 1
+  leg_labels <- character(length(rects))
+  has_narrow <- any(sapply(rects, length) < 15)
+  par(xpd = NA)
+  for (i in seq_along(rects)) {
+    idxs <- rects[[i]]
+    sz <- length(idxs)
+    x_mid <- x_start + (sz - 1) / 2
+    if (!is.null(cluster_ids) && !is.null(cl_map)) {
+      cid <- as.character(cluster_ids[idxs[1]])
+      lbl <- sprintf("%s (n=%d)", cl_map[cid], sz)
+      leg_labels[i] <- lbl
+    } else {
+      lbl <- sprintf("G%d (n=%d)", i, sz)
+      leg_labels[i] <- lbl
+    }
+    if (!has_narrow || sz >= 15) {
+      text(x = x_mid, y = -0.025, labels = lbl, col = box_cols[i],
+           cex = 0.72, font = 2)
+    }
+    x_start <- x_start + sz
+  }
+  if (has_narrow) {
+    legend("topright", inset = c(0.01, 0.06), legend = leg_labels,
+           col = box_cols, lwd = 2.2, bty = "o", bg = "white",
+           box.col = "gray80", cex = 0.78, ncol = 2, title = "K = 6 Groups (Left to Right)")
+  }
+  text(x = 263 * 0.99, y = cut_line_h + 0.025,
+       labels = sprintf("K = 6 cut (h = %.3f)", cut_line_h),
+       adj = c(1, 0), col = "#d95f02", cex = 0.85, font = 2)
+  par(xpd = FALSE)
+}
+
+# Figure 3a: Full-View Single Linkage Dendrogram
+save_dual_plot("fig03a_dendrogram_single", 13.0, 5.2, function() {
+  h_cut <- mean(rev(hc_single$height)[5:6])
+  plot_full_dendrogram(
+    hc_single,
+    sprintf("Single Linkage Dendrogram (n = 263, Cophenetic r = %.3f) - Severe Chaining & 5 Singletons", coph_single),
+    "#e41a1c", h_cut
+  )
+})
+
+# Figure 3b: Full-View Complete Linkage Dendrogram
+save_dual_plot("fig03b_dendrogram_complete", 13.0, 5.2, function() {
+  h_cut <- mean(rev(hc_complete$height)[5:6])
+  plot_full_dendrogram(
+    hc_complete,
+    sprintf("Complete Linkage Dendrogram (n = 263, Cophenetic r = %.3f) - Discrete Grid & Ceiling Ties at h = 1.0", coph_complete),
+    "#ff7f00", h_cut
+  )
+})
+
+# Figure 3c: Full-View Average Linkage (UPGMA) Dendrogram
+save_dual_plot("fig03c_dendrogram_average", 13.0, 5.2, function() {
+  h_cut <- mean(rev(hc_average$height)[5:6])
+  cl_map <- c(
+    "1" = "C1: Cross-AI",
+    "2" = "C2: Same-AI",
+    "3" = "C3: Self-Solve",
+    "4" = "C4: Course-Mat",
+    "5" = "C5: Conform",
+    "6" = "C6: Skeptic"
+  )
+  plot_full_dendrogram(
+    hc_average,
+    sprintf("Average Linkage (UPGMA) Dendrogram (n = 263, Cophenetic r = %.3f) - Clear K = 6 Cluster Division", coph_average),
+    "#1f78b4", h_cut, cluster_ids = df$Cluster_K6, cl_map = cl_map
+  )
 })
 
 # Figure 4: Silhouette Width & Largest Cluster % across K = 2..8
@@ -421,7 +508,7 @@ save_dual_plot("fig04_silhouette_comparison", 9.0, 4.3, function() {
   
   plot(k_range, max_a, type = "b", pch = 19, lwd = 2.2, col = "#1f78b4",
        ylim = c(20, 102), xlab = "Number of Clusters (K)",
-       ylab = "Largest Cluster Share (% of n = 261)",
+       ylab = "Largest Cluster Share (% of n = 263)",
        main = "Chaining Diagnostic: Largest Cluster %", las = 1)
   grid(col = "gray88", lty = 2)
   lines(k_range, max_c, type = "b", pch = 17, lwd = 2.0, col = "#ff7f00")
@@ -470,12 +557,12 @@ save_dual_plot("fig06_cluster_profiles", 10.5, 5.5, function() {
   par(mfrow = c(2, 3), mar = c(4.0, 4.2, 3.0, 1.2))
   cols <- c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02")
   short_titles <- c(
-    "C1: Cross-AI & Peer (n=46, 17.6%)",
-    "C2: Same-AI Probe (n=49, 18.8%)",
-    "C3: Self-Solvers (n=60, 23.0%)",
-    "C4: Course Material (n=68, 26.1%)",
-    "C5: AI Conformers (n=20, 7.7%)",
-    "C6: Skeptic Anchors (n=18, 6.9%)"
+    "C1: Cross-AI & Peer (n=46, 17.5%)",
+    "C2: Same-AI Probe (n=55, 20.9%)",
+    "C3: Self-Solvers (n=61, 23.2%)",
+    "C4: Course Material (n=63, 24.0%)",
+    "C5: AI Conformers (n=20, 7.6%)",
+    "C6: Skeptic Anchors (n=18, 6.8%)"
   )
   for (cl_id in 1:6) {
     sub_df <- df[df$Cluster_K6 == cl_id, ]
@@ -503,13 +590,13 @@ save_dual_plot("fig07_external_validation", 10.0, 4.5, function() {
   par(mfrow = c(1, 2), mar = c(5.5, 4.5, 3.2, 1.5))
   
   # Left panel: Boxplot + means of Q6 (AI Usage Days) by Cluster
-  cl_labels <- c("C1\nCross-AI\n(n=46)", "C2\nSame-AI\n(n=49)",
-                 "C3\nSelf-Solve\n(n=60)", "C4\nCourse-Mat\n(n=68)",
+  cl_labels <- c("C1\nCross-AI\n(n=46)", "C2\nSame-AI\n(n=55)",
+                 "C3\nSelf-Solve\n(n=61)", "C4\nCourse-Mat\n(n=63)",
                  "C5\nConformer\n(n=20)", "C6\nSkeptic\n(n=18)")
   cl_cols <- c("#e7298a", "#7570b3", "#d95f02", "#1b9e77", "#66a61e", "#e6ab02")
   boxplot(Q6_Num ~ Cluster_K6, data = df, names = cl_labels, col = cl_cols,
           ylab = "AI Usage in Past 7 Days (Q6: 0-7 Days)", xlab = "",
-          main = "External Validation 1: AI Usage (Q6)\n(Kruskal-Wallis p = 0.0147, ANOVA p = 0.0130)",
+          main = "External Validation 1: AI Usage (Q6)\n(Kruskal-Wallis p = 0.0103, ANOVA p = 0.0089)",
           las = 1, cex.axis = 0.78, cex.main = 0.95, ylim = c(0, 7.5))
   q6_means <- tapply(df$Q6_Num, df$Cluster_K6, mean)
   points(1:6, q6_means, pch = 18, col = "white", cex = 1.6)
@@ -523,7 +610,7 @@ save_dual_plot("fig07_external_validation", 10.0, 4.5, function() {
   barplot(s4_prop, col = yr_cols, border = "white",
           ylab = "Within-Cluster Percentage (%)",
           xlab = "Cluster (Average Linkage, K = 6)",
-          main = "External Validation 2: Year of Study (S4)\n(Chi-square = 76.66, p = 0.0001)",
+          main = "External Validation 2: Year of Study (S4)\n(Chi-square = 77.04, p = 0.0001)",
           las = 1, cex.main = 0.95)
   legend("topright", inset = c(-0.34, 0),
          legend = c("1st year", "2nd year", "3rd year", "4th year", "Grad/Master"),

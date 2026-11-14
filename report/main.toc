@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {1}Introduction, Motivation, and Research Questions}{2}{section.1}%
+\contentsline {section}{\numberline {2}Theoretical Framework and Method Explanation}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}General Objectives of Hierarchical Cluster Analysis}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Nominal Feature Space and Normalized Hamming Distance}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Mathematical Formulation of Linkage Criteria}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Strengths and Weaknesses of the Methodology}{4}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Practical Empirical Study: Survey Design and Data Collection}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Survey Design and the Five AI Uncertainty Scenarios}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Data Preprocessing and Sample Demographics}{5}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Empirical Results: Linkage Comparison and Cluster Profiling}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Comparison of Single, Complete, and Average Linkage (RQ2)}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Determining the Optimal Number of Clusters and Stability Analysis (RQ3)}{8}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Behavioral Archetypes and Cluster Profiling (RQ1)}{10}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}External Validation with Weekly AI Usage ($Q_6$) and Year of Study ($S_4$)}{11}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Conclusions and Limitations}{12}{section.5}%
+\contentsline {section}{\numberline {A}Appendix: Reproducible R Code (\texttt {code/analysis.R})}{14}{section.A}%

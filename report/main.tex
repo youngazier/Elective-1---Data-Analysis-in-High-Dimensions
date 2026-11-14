@@ -25,10 +25,8 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\footnotesize \textit{Data Analysis in High Dimensions --- Vietnamese-German University (VGU)}}
-\rhead{\footnotesize \textit{When AI Disagrees With You: Hierarchical Cluster Analysis}}
 \cfoot{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0pt}
 
 \captionsetup{font=small,labelfont=bf}
 \setlength{\parskip}{0.25em}
@@ -63,39 +61,94 @@
     tabsize=2
 }
 
-\title{\vspace{-1.2cm}\textbf{When AI Disagrees With You: How University Students Respond to Uncertain AI Answers}\\[0.3em]
-\large An Empirical Investigation Using Agglomerative Hierarchical Cluster Analysis}
-
-\author{
-\textbf{Tran Trong Nhan} (10423160) \quad
-\textbf{Nguyen Minh Nhat Huy} (10423045) \quad
-\textbf{Dao Hoang Minh Triet} (10423179)\\[0.3em]
-\small Computer Science and Engineering (CSE), Vietnamese-German University (VGU)\\
-\small Course: \textit{Data Analysis in High Dimensions} --- Instructor: Prof.\ Dr.\ C.\ Andersson
-}
-\date{November 2026}
-
 \begin{document}
 
-\maketitle
-\vspace{-0.6cm}
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{-0.8cm}
+\noindent
+\hspace*{0.04\textwidth}%
+\raisebox{-0.5\height}{\includegraphics[height=1.55cm]{logo/vgu.png}}%
+\hfill
+\raisebox{-0.5\height}{\includegraphics[height=1.85cm]{logo/fra-uas.png}}%
+\hspace*{0.04\textwidth}
+
+\vspace{2.2cm}
+\begin{center}
+    {\Large Vietnamese -- German University}\\[0.9em]
+    {\Large DEPARTMENT OF COMPUTER SCIENCE}\\[2.2em]
+    {\Large Frankfurt University of Applied Sciences}\\[0.9em]
+    {\Large FACULTY OF COMPUTER SCIENCE AND ENGINEERING}\\[3.2em]
+
+    {\LARGE \textbf{FINAL REPORT}}\\[1.8em]
+
+    {\Large \textbf{WHEN AI DISAGREES WITH YOU:}}\\[0.75em]
+    {\Large \textbf{HOW UNIVERSITY STUDENTS RESPOND TO}}\\[0.75em]
+    {\Large \textbf{UNCERTAIN AI ANSWERS}}\\[3.2em]
+
+    {\large
+    \textbf{Supervisor:} Prof.\ Dr.\ Eva Christina Andersson\\[1.4em]
+    \begin{tabular}{@{}r@{\hspace{0.8em}}l@{}}
+        \textbf{Group:} & Tran Trong Nhan -- 10423160 \\[0.85em]
+                        & Nguyen Minh Nhat Huy -- 10423045 \\[0.85em]
+                        & Dao Hoang Minh Triet -- 10423179
+    \end{tabular}
+    }
+\end{center}
+\vfill
+\end{titlepage}
+
+\pagenumbering{roman}
+
+% Page 2: Acknowledgment
+\vspace*{1cm}
+\begin{center}
+    {\Large \textbf{ACKNOWLEDGMENT}}
+\end{center}
+\vspace{1.2em}
+
+\noindent
+We would like to extend our sincere gratitude to Prof.\ Dr.\ Eva Christina Andersson, instructor of \textit{Data Analysis in High Dimensions}, for her dedicated mentorship, constructive feedback, and steady encouragement over the course of this project. Her clear lectures and thoughtful suggestions played a vital role in guiding our methodology and improving the overall rigor of this report.
+
+\vspace{0.8em}
+\noindent
+We also wish to thank every student at the Vietnamese-German University (VGU) who took part in our survey. Without their generous time and candid responses, this empirical investigation would not have been possible.
+
+\newpage
+
+% Page 3: Table of Contents
+\tableofcontents
+\newpage
+
+% Page 4: List of Figures
+\listoffigures
+\newpage
+
+% Page 5: List of Tables
+\listoftables
+\newpage
+
+% Page 6: Abstract and Main Body
+\pagenumbering{arabic}
 
 \begin{abstract}
 \noindent
-As generative artificial intelligence (AI) assistants become ubiquitous in university coursework, students frequently encounter AI outputs that conflict with their own reasoning, contradict another AI system, cite unverifiable literature, omit intermediate mathematical steps, or reverse answers under minimal social pressure. Understanding how students respond to such epistemic uncertainty is essential for promoting critical AI literacy. In this study, we design and administer a scenario-based survey to $n = 261$ university students at the Vietnamese-German University (VGU), capturing their immediate first action across $p = 5$ nominal conflict scenarios ($Q_1$--$Q_5$), alongside two external validation variables: Year of Study ($S_4$) and Weekly Generative AI Usage Frequency ($Q_6$). Because the response space is strictly nominal, we measure pairwise dissimilarity using the Normalized Hamming (Gower) metric $d(\vec{X}_i, \vec{X}_j) \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$ and compare three agglomerative hierarchical algorithms: Single Linkage, Complete Linkage, and Average Linkage (UPGMA). We demonstrate mathematically and empirically that order-statistic linkages (Single and Complete) suffer from severe merge-height quantization on discrete Hamming lattices, leading to extreme chaining ($98.1\%$ in a single cluster under Single Linkage) or ceiling tie-breaking instability ($\text{ARI} = 0.135$ under Complete Linkage). In contrast, Average Linkage achieves the highest cophenetic correlation ($r_{\text{coph}} = 0.6221$), resolves discrete tie degeneracies into $67$ distinct rational merge heights, and yields a stable, interpretable partition at $K = 6$ ($\bar{s} = 0.1952$; subsampling $\text{ARI} = 0.5228$--$0.5679$). Cluster profiling reveals six distinct behavioral archetypes: \textit{Course-Material Verifiers} ($26.1\%$), \textit{Independent Problem-Solvers} ($23.0\%$), \textit{Same-AI Conversationalists} ($18.8\%$), \textit{Cross-AI \& Peer Triangulators} ($17.6\%$), \textit{Uncritical AI Conformers} ($7.7\%$), and \textit{AI-Skeptical Anchors} ($6.9\%$). External validation confirms statistically significant differences across clusters in both weekly AI usage ($\text{Kruskal-Wallis } p = 0.0147$, $\text{ANOVA } p = 0.0130$) and academic seniority ($\chi^2 = 76.66, p = 0.0001$).
+As generative artificial intelligence (AI) assistants become widespread in university coursework, students routinely encounter uncertain or questionable outputs---such as an AI contradicting a student's own reasoning, disagreements between separate AI tools, unverifiable bibliographic citations, unclear intermediate reasoning steps, or answer reversals under simple questioning. Understanding how students react initially to such uncertainty is essential for assessing critical AI literacy in higher education. Rather than imposing predefined categories or grading student actions as right or wrong, this project seeks to uncover whether natural behavioral patterns emerge in students' immediate responses across realistic coursework conflict scenarios. Specifically, we aim to identify distinct response strategies, examine how different agglomerative hierarchical clustering linkage methods behave on nominal survey data, and evaluate whether the resulting groupings are stable and associated with students' academic seniority and frequency of AI use. To investigate these objectives, we designed and administered an anonymous scenario-based survey at the Vietnamese-German University (VGU), recording each respondent's immediate action choice across multiple AI-uncertainty scenarios alongside withheld validation variables for year of study and weekly AI usage frequency. After cleaning and harmonizing the nominal survey data, we measured pairwise student dissimilarities using the Normalized Hamming (Gower) metric to preserve the unordered categorical response space without arbitrary numerical encoding. We then constructed and compared hierarchical clusterings using Single Linkage, Complete Linkage, and Average Linkage (UPGMA), evaluated dendrogram quality and cluster separation through cophenetic correlation and silhouette analysis, tested partition robustness via row-order permutations and random subsampling with the Adjusted Rand Index, profiled the resulting behavioral clusters, and performed external statistical validation against year of study and weekly AI usage.
 \end{abstract}
 
 \noindent\textbf{Keywords:} Multivariate Statistics, Agglomerative Hierarchical Clustering, Normalized Hamming Distance, Gower Dissimilarity, UPGMA, Silhouette Analysis, Adjusted Rand Index, AI Literacy.
 
+\newpage
+
 \section{Introduction, Motivation, and Research Questions}
 
-Generative AI tools such as ChatGPT, Gemini, and Claude are now deeply integrated into higher education coursework. While these systems can accelerate problem-solving, their probabilistic nature exposes students to plausible-sounding errors, fabricated bibliographic citations, opaque algebraic transitions, and sycophantic answer reversals when prompted with a simple ``Are you sure?''. How students react first when confronted with an uncertain or conflicting AI response determines whether AI acts as a scaffold for deeper learning or a source of unverified misinformation.
+Generative AI tools such as ChatGPT, Gemini, and Claude are now a normal part of university coursework. While these tools can help students solve problems faster, they are not always reliable. Students often see AI answers that sound convincing but are wrong, include fake paper references, skip or hide math steps, or suddenly change their answer when asked a simple ``Are you sure?''. What students choose to do first when they face an unclear or conflicting AI answer decides whether AI helps them learn better or leads them to accept wrong information.
 
-Rather than imposing pre-defined psychological categories or scoring student actions as ``correct'' or ``incorrect,'' our objective is to discover whether natural behavioral groupings emerge directly from empirical survey responses. Guided by this exploratory objective, we address three primary research questions:
+Instead of forcing students into fixed categories beforehand or grading their choices as ``right'' or ``wrong,'' our goal is to see whether natural groups of student behavior appear directly from their survey answers. Based on this goal, we focus on three main research questions:
 \begin{itemize}
-    \item \textbf{RQ1 (Behavioral Archetypes):} When an AI answer is confusing or conflicts with other information across coursework scenarios ($Q_1$--$Q_5$), do university students exhibit recognizable patterns in the action they choose to take first?
-    \item \textbf{RQ2 (Linkage Sensitivity):} How do the resulting cluster structures differ when constructed via Single Linkage, Complete Linkage, and Average Linkage (UPGMA) on a discrete Hamming distance space?
-    \item \textbf{RQ3 (Partition Stability \& External Validity):} Do the identified student clusters remain stable under respondent row-order permutations and $80\%$ random subsampling, and do they differ significantly across external validation variables not used in clustering---specifically Year of Study ($S_4$) and Weekly AI Usage Frequency ($Q_6$)?
+    \item \textbf{RQ1 (Behavioral Groups):} When an AI answer is confusing or disagrees with other information across coursework scenarios ($Q_1$--$Q_5$), do university students show clear patterns in what they choose to do first?
+    \item \textbf{RQ2 (Linkage Sensitivity):} How do the resulting cluster groups change when we use Single Linkage, Complete Linkage, and Average Linkage (UPGMA) on a discrete Hamming distance space?
+    \item \textbf{RQ3 (Partition Stability \& External Validity):} Do the student clusters stay stable when we shuffle the row order or take $80\%$ random subsamples, and do they differ across external variables not used in clustering---specifically Year of Study ($S_4$) and Weekly AI Usage Frequency ($Q_6$)?
 \end{itemize}
 
 \section{Theoretical Framework and Method Explanation}
@@ -189,44 +242,44 @@ We developed an anonymous online questionnaire via Google Forms titled \textit{`
 Finally, respondents answered $Q_6$: \textit{``On how many of the past seven days did you use a generative AI assistant for coursework?''} ($0$ to $7$ days). Importantly, $S_4$ and $Q_6$ were withheld from the clustering algorithm and reserved strictly for external validation.
 
 \subsection{Data Preprocessing and Sample Demographics}
-A total of $N = 261$ responses were collected. All $261$ respondents satisfied $S_1 = \text{Yes}$ and $S_2 = \text{Yes}$ with zero missing values across $Q_1$--$Q_6$. During preprocessing in \texttt{R}, respondents were assigned anonymous IDs (\texttt{R001}--\texttt{R261}). Inspection of unique text strings revealed that Option \texttt{D} in $Q_1$ appeared under two slight wording variants between the pilot and final form (\textit{``Ask a different AI the same question again.''} [$n=28$] and \textit{``Ask a different AI the original question.''} [$n=13$]); these were harmonized into a single factor level \texttt{D} ($n=41$). Across the $6 \times 6 \times 5 \times 5 \times 6 = 5{,}400$ theoretical response combinations, the $261$ students exhibited $215$ distinct 5-question profiles, with the most frequent identical profiles being \texttt{B-B-A-B-B} ($n=8$), \texttt{D-D-C-D-D} ($n=7$), \texttt{C-C-B-C-C} ($n=6$), \texttt{F-F-E-D-F} ($n=5$), and \texttt{A-A-A-A-A} ($n=4$).
+A total of $N = 263$ responses were collected. All $263$ respondents satisfied $S_1 = \text{Yes}$ and $S_2 = \text{Yes}$ with zero missing values across $Q_1$--$Q_6$. During preprocessing in \texttt{R}, respondents were assigned anonymous IDs (\texttt{R001}--\texttt{R263}). Inspection of unique text strings revealed that Option \texttt{D} in $Q_1$ appeared under two slight wording variants between the pilot and final form (\textit{``Ask a different AI the same question again.''} [$n=29$] and \textit{``Ask a different AI the original question.''} [$n=13$]); these were harmonized into a single factor level \texttt{D} ($n=42$). Across the $6 \times 6 \times 5 \times 5 \times 6 = 5{,}400$ theoretical response combinations, the $263$ students exhibited $217$ distinct 5-question profiles, with the most frequent identical profiles being \texttt{B-B-A-B-B} ($n=8$), \texttt{D-D-C-D-D} ($n=7$), \texttt{C-C-B-C-C} ($n=6$), \texttt{F-F-E-D-F} ($n=5$), and \texttt{A-A-A-A-A} ($n=4$).
 
-By Year of Study ($S_4$), the sample comprises $63$ 1st-year ($24.1\%$), $65$ 2nd-year ($24.9\%$), $48$ 3rd-year ($18.4\%$), $67$ 4th-year ($25.7\%$), and $12$ Graduate/Master's students ($4.6\%$), with $6$ unspecified ($2.3\%$). By Major ($S_3$), Computer Science and Engineering (CSE) accounts for $52.1\%$ ($n=136$), followed by ECE ($3.8\%$), BCE ($2.7\%$), MEN ($2.7\%$), MEC ($2.3\%$), BBA ($1.9\%$), BFA ($1.5\%$), other VGU programs ($2.7\%$), and unspecified ($30.3\%$). For weekly AI usage ($Q_6$), students reported a mean of $4.09 \pm 2.13$ days/week ($\text{median} = 4.0, \text{IQR} = 3.0$).
+By Year of Study ($S_4$), the sample comprises $63$ 1st-year ($24.0\%$), $66$ 2nd-year ($25.1\%$), $48$ 3rd-year ($18.3\%$), $68$ 4th-year ($25.9\%$), and $12$ Graduate/Master's students ($4.6\%$), with $6$ unspecified ($2.3\%$). By Major ($S_3$), Computer Science and Engineering (CSE) accounts for $52.1\%$ ($n=137$), followed by ECE ($3.8\%$), BCE ($2.7\%$), MEN ($2.7\%$), MEC ($2.3\%$), BBA ($1.9\%$), BFA ($1.9\%$), other VGU programs ($2.7\%$), and unspecified ($30.0\%$). For weekly AI usage ($Q_6$), students reported a mean of $4.10 \pm 2.12$ days/week ($\text{median} = 4.0, \text{IQR} = 3.0$).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig01_marginal_responses.pdf}
-    \caption{Marginal percentage distributions of student responses across scenarios $Q_1$--$Q_5$ ($n = 261$).}
+    \caption{Marginal percentage distributions of student responses across scenarios $Q_1$--$Q_5$ ($n = 263$).}
     \label{fig:marginal}
 \end{figure}
 
-Figure \ref{fig:marginal} displays the marginal distributions across $Q_1$--$Q_5$. Checking course materials (\texttt{A}, $18.8\%$--$24.9\%$), solving/deriving independently (\texttt{B}, $18.0\%$--$23.8\%$), and probing the same AI (\texttt{C}, $18.0\%$--$23.8\%$) are balanced across $Q_1, Q_2, Q_4, Q_5$. In $Q_3$ (missing paper), Option \texttt{A} (\textit{independently search for another source}) reaches $40.2\%$ ($n=105$) because it combines textbook/library verification and independent literature search into a single 5-option item. Consequently, the empirical pairwise match rate $\sum_m \hat{p}_{km}^2$ is highest for $Q_3$ ($25.74\%$) and $Q_4$ ($20.64\%$) compared to the 6-option scenarios $Q_1$ ($17.69\%$), $Q_2$ ($18.09\%$), and $Q_5$ ($18.33\%$). Across all $\binom{261}{2} = 33{,}930$ respondent pairs (Figure \ref{fig:hamming}), the mean Normalized Hamming distance is $0.8021 \pm 0.2005$ ($\text{median} = 0.80$), with $104$ pairs ($0.31\%$) at $d_H = 0.0$, $549$ ($1.62\%$) at $0.2$, $2{,}145$ ($6.32\%$) at $0.4$, $6{,}097$ ($17.97\%$) at $0.6$, $12{,}230$ ($36.04\%$) at $0.8$, and $12{,}805$ ($37.74\%$) at $1.0$.
+Figure \ref{fig:marginal} displays the marginal distributions across $Q_1$--$Q_5$. Checking course materials (\texttt{A}, $18.6\%$--$25.1\%$), solving/deriving independently (\texttt{B}, $17.9\%$--$23.6\%$), and probing the same AI (\texttt{C}, $17.9\%$--$24.3\%$) are balanced across $Q_1, Q_2, Q_4, Q_5$. In $Q_3$ (missing paper), Option \texttt{A} (\textit{independently search for another source}) reaches $40.3\%$ ($n=106$) because it combines textbook/library verification and independent literature search into a single 5-option item. Consequently, the empirical pairwise match rate $\sum_m \hat{p}_{km}^2$ is highest for $Q_3$ ($25.81\%$) and $Q_4$ ($20.69\%$) compared to the 6-option scenarios $Q_1$ ($17.70\%$), $Q_2$ ($18.12\%$), and $Q_5$ ($18.38\%$). Across all $\binom{263}{2} = 34{,}453$ respondent pairs (Figure \ref{fig:hamming}), the mean Normalized Hamming distance is $0.8016 \pm 0.2005$ ($\text{median} = 0.80$), with $104$ pairs ($0.30\%$) at $d_H = 0.0$, $559$ ($1.62\%$) at $0.2$, $2{,}184$ ($6.34\%$) at $0.4$, $6{,}220$ ($18.05\%$) at $0.6$, $12{,}422$ ($36.05\%$) at $0.8$, and $12{,}964$ ($37.63\%$) at $1.0$.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.78\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig02_hamming_distribution.pdf}
-    \caption{Empirical distribution of Normalized Hamming distances across all $33{,}930$ pairs of respondents.}
+    \caption{Empirical distribution of Normalized Hamming distances across all $34{,}453$ pairs of respondents.}
     \label{fig:hamming}
 \end{figure}
 
 \section{Empirical Results: Linkage Comparison and Cluster Profiling}
 
 \subsection{Comparison of Single, Complete, and Average Linkage (RQ2)}
-We constructed agglomerative dendrograms from the $261 \times 261$ Gower/Hamming matrix using \texttt{stats::hclust} under Single, Complete, and Average Linkage (Figure \ref{fig:dendro}). To quantify how faithfully each dendrogram preserves the original pairwise distances $d_H(\vec{X}_i, \vec{X}_j)$, we computed the \textbf{Cophenetic Correlation Coefficient} $r_{\text{coph}} = \text{Cor}(d_H, d_{\text{coph}})$, where $d_{\text{coph}}(i,j)$ is the dendrogram height at which respondents $i$ and $j$ first merge:
+We constructed agglomerative dendrograms from the $263 \times 263$ Gower/Hamming matrix using \texttt{stats::hclust} under Single, Complete, and Average Linkage (Figure \ref{fig:dendro}). To quantify how faithfully each dendrogram preserves the original pairwise distances $d_H(\vec{X}_i, \vec{X}_j)$, we computed the \textbf{Cophenetic Correlation Coefficient} $r_{\text{coph}} = \text{Cor}(d_H, d_{\text{coph}})$, where $d_{\text{coph}}(i,j)$ is the dendrogram height at which respondents $i$ and $j$ first merge:
 \begin{equation}
-    r_{\text{coph}}^{\text{Average}} = \mathbf{0.6221} \quad > \quad r_{\text{coph}}^{\text{Complete}} = \mathbf{0.5290} \quad \gg \quad r_{\text{coph}}^{\text{Single}} = \mathbf{0.1409}.
+    r_{\text{coph}}^{\text{Average}} = \mathbf{0.6275} \quad > \quad r_{\text{coph}}^{\text{Complete}} = \mathbf{0.5253} \quad \gg \quad r_{\text{coph}}^{\text{Single}} = \mathbf{0.1449}.
 \end{equation}
-Average Linkage preserves the pairwise geometry substantially better than both alternatives. Examining the 260 merge heights reveals why Single and Complete Linkage struggle on discrete Hamming spaces:
+Average Linkage preserves the pairwise geometry substantially better than both alternatives. Examining the 262 merge heights reveals why Single and Complete Linkage struggle on discrete Hamming spaces:
 \begin{itemize}
-    \item \textbf{Single Linkage Chaining:} Because $d_{12}^{\text{single}} = \min d(\vec{X}_i, \vec{Y}_j) \in \{0, 0.2, 0.4, 0.6\}$, out of $260$ merges, $46$ occur at $h=0.0$ (identical profiles), $151$ occur at $h=0.2$ (differing on 1 question), $62$ occur at $h=0.4$, and $1$ occurs at $h=0.6$. Because almost every student shares at least 3 or 4 answers with \textit{some} neighbor, Single Linkage chains $97.3\%$--$99.6\%$ of the entire student body into one massive cluster while peeling off singletons ($256/1/1/1/1/1$ at $K=6$).
+    \item \textbf{Single Linkage Chaining:} Because $d_{12}^{\text{single}} = \min d(\vec{X}_i, \vec{Y}_j) \in \{0, 0.2, 0.4, 0.6\}$, out of $262$ merges, $46$ occur at $h=0.0$ (identical profiles), $154$ occur at $h=0.2$ (differing on 1 question), $61$ occur at $h=0.4$, and $1$ occurs at $h=0.6$. Because almost every student shares at least 3 or 4 answers with \textit{some} neighbor, Single Linkage chains $97.3\%$--$99.6\%$ of the entire student body into one massive cluster while peeling off singletons ($258/1/1/1/1/1$ at $K=6$).
     \item \textbf{Complete Linkage Ceiling Degeneracy:} Because $d_{12}^{\text{complete}} = \max d(\vec{X}_i, \vec{Y}_j)$, merge heights are restricted to $\{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, and the final $15$ merges all occur at the maximum ceiling height $h = 1.0$. Consequently, cutting the Complete Linkage tree at any $K \le 16$ via \texttt{cutree} slices inside $15$ tied merges at $h = 1.0$, making the partition heavily dependent on input row order.
-    \item \textbf{Average Linkage (UPGMA) Resolution:} By averaging over cluster cardinalities $k \times l$, Average Linkage produces $67$ distinct merge heights, with the top merges occurring at strictly increasing heights (0.6941, 0.6942, 0.7065, 0.7229, 0.7591, 0.7697, 0.7729, 0.8024, 0.8103, 0.8339, 0.8576, 0.8656, and 0.8729), completely eliminating tie degeneracy in the upper tree.
+    \item \textbf{Average Linkage (UPGMA) Resolution:} By averaging over cluster cardinalities $k \times l$, Average Linkage produces $66$ distinct merge heights, with the top merges occurring at strictly increasing heights (0.6714, 0.6905, 0.7065, 0.7229, 0.7661, 0.7697, 0.7729, 0.7986, 0.8050, 0.8374, 0.8576, 0.8653, and 0.8732), completely eliminating tie degeneracy in the upper tree.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig03_dendrograms_comparison.pdf}
-    \caption{Comparison of Single, Complete, and Average Linkage dendrograms ($n = 261$) with $K=6$ cut boxes.}
+    \caption{Comparison of Single, Complete, and Average Linkage dendrograms ($n = 263$) with $K=6$ cut boxes.}
     \label{fig:dendro}
 \end{figure}
 
@@ -242,27 +295,27 @@ Table \ref{tab:linkage_eval} and Figure \ref{fig:silhouette} summarize partition
 \toprule
 \textbf{Method} & $\mathbf{K}$ & \textbf{Avg Sil ($\bar{s}$)} & \textbf{Neg Sil (\%)} & \textbf{Max Clust (\%)} & \textbf{Cluster Sizes ($n_1/\dots/n_K$)} & \textbf{Perm ARI} & \textbf{Sub80 ARI} \\
 \midrule
-Single   & 3 & $-0.0982$ & $65.9\%$ & $99.2\%$ & \texttt{259/1/1} & $0.495 \pm 0.000$ & $0.771 \pm 0.261$ \\
-Single   & 5 & $-0.1777$ & $78.5\%$ & $98.5\%$ & \texttt{257/1/1/1/1} & $0.279 \pm 0.096$ & $0.849 \pm 0.140$ \\
-Single   & 6 & $-0.2114$ & $83.1\%$ & $98.1\%$ & \texttt{256/1/1/1/1/1} & $0.246 \pm 0.107$ & $0.820 \pm 0.143$ \\
+Single   & 3 & $-0.0969$ & $65.4\%$ & $99.2\%$ & \texttt{261/1/1} & $0.493 \pm 0.014$ & $0.657 \pm 0.279$ \\
+Single   & 5 & $-0.1778$ & $78.7\%$ & $98.5\%$ & \texttt{259/1/1/1/1} & $0.292 \pm 0.112$ & $0.777 \pm 0.178$ \\
+Single   & 6 & $-0.2113$ & $83.3\%$ & $98.1\%$ & \texttt{258/1/1/1/1/1} & $0.251 \pm 0.120$ & $0.829 \pm 0.119$ \\
 \midrule
-Complete & 3 & $-0.0367$ & $51.7\%$ & $96.6\%$ & \texttt{252/5/4} & $0.041 \pm 0.126$ & $0.115 \pm 0.207$ \\
-Complete & 5 & $-0.0677$ & $63.6\%$ & $90.8\%$ & \texttt{237/8/7/5/4} & $0.135 \pm 0.147$ & $0.303 \pm 0.164$ \\
-Complete & 6 & $-0.0806$ & $67.4\%$ & $88.9\%$ & \texttt{232/8/7/5/5/4} & $0.135 \pm 0.127$ & $0.301 \pm 0.152$ \\
+Complete & 3 & $-0.0371$ & $51.3\%$ & $96.6\%$ & \texttt{254/5/4} & $0.074 \pm 0.144$ & $0.120 \pm 0.198$ \\
+Complete & 5 & $-0.0682$ & $63.5\%$ & $90.9\%$ & \texttt{239/8/7/5/4} & $0.134 \pm 0.141$ & $0.322 \pm 0.168$ \\
+Complete & 6 & $-0.0810$ & $67.3\%$ & $89.0\%$ & \texttt{234/8/7/5/5/4} & $0.137 \pm 0.109$ & $0.298 \pm 0.141$ \\
 \midrule
-Average  & 2 & $+0.1023$ & $16.9\%$ & $93.1\%$ & \texttt{243/18} & $0.380 \pm 0.283$ & $0.247 \pm 0.241$ \\
-Average  & 3 & $+0.1176$ & $17.2\%$ & $67.8\%$ & \texttt{177/66/18} & $0.497 \pm 0.164$ & $0.500 \pm 0.172$ \\
-Average  & 4 & $+0.1189$ & $21.1\%$ & $67.8\%$ & \texttt{177/46/20/18} & $0.468 \pm 0.200$ & $0.469 \pm 0.197$ \\
-\textbf{Average} & \textbf{5} & $\mathbf{+0.1562}$ & $22.6\%$ & $49.0\%$ & \texttt{128/49/46/20/18} & $\mathbf{0.572 \pm 0.089}$ & $\mathbf{0.568 \pm 0.133}$ \\
-\textbf{Average} & \textbf{6} & $\mathbf{+0.1952}$ & $\mathbf{16.5\%}$ & $\mathbf{26.1\%}$ & \texttt{68/60/49/46/20/18} & $\mathbf{0.498 \pm 0.090}$ & $\mathbf{0.523 \pm 0.097}$ \\
-Average  & 7 & $+0.1944$ & $16.9\%$ & $26.1\%$ & \texttt{68/52/49/46/20/18/8} & --- & --- \\
-Average  & 8 & $+0.1943$ & $19.5\%$ & $26.1\%$ & \texttt{68/52/49/46/18/12/8/8} & --- & --- \\
+Average  & 2 & $+0.1030$ & $16.7\%$ & $93.2\%$ & \texttt{245/18} & $0.369 \pm 0.268$ & $0.294 \pm 0.260$ \\
+Average  & 3 & $+0.1178$ & $17.1\%$ & $68.1\%$ & \texttt{179/66/18} & $0.504 \pm 0.159$ & $0.507 \pm 0.179$ \\
+Average  & 4 & $+0.1186$ & $21.7\%$ & $68.1\%$ & \texttt{179/46/20/18} & $0.514 \pm 0.194$ & $0.477 \pm 0.208$ \\
+\textbf{Average} & \textbf{5} & $\mathbf{+0.1652}$ & $18.3\%$ & $47.1\%$ & \texttt{124/55/46/20/18} & $\mathbf{0.573 \pm 0.103}$ & $\mathbf{0.555 \pm 0.131}$ \\
+\textbf{Average} & \textbf{6} & $\mathbf{+0.2001}$ & $\mathbf{15.6\%}$ & $\mathbf{24.0\%}$ & \texttt{63/61/55/46/20/18} & $\mathbf{0.511 \pm 0.093}$ & $\mathbf{0.522 \pm 0.096}$ \\
+Average  & 7 & $+0.1993$ & $15.2\%$ & $24.0\%$ & \texttt{63/55/53/46/20/18/8} & --- & --- \\
+Average  & 8 & $+0.1985$ & $17.5\%$ & $24.0\%$ & \texttt{63/55/53/46/18/12/8/8} & --- & --- \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
 
-Under Average Linkage, $\bar{s}$ rises monotonically from $K=2$ ($0.1023$) to a global maximum at $\mathbf{K = 6}$ ($\mathbf{\bar{s} = 0.1952}$, with the lowest proportion of negative silhouettes at $16.5\%$), before plateauing at $K=7, 8$ where small splinter clusters of size $8$ appear. Furthermore, at $K=6$ the largest cluster share drops from $49.0\%$ ($n=128$ at $K=5$) to a well-balanced $26.1\%$ ($n=68$), yielding six substantive groups of sizes $68, 60, 49, 46, 20, 18$.
+Under Average Linkage, $\bar{s}$ rises monotonically from $K=2$ ($0.1030$) to a global maximum at $\mathbf{K = 6}$ ($\mathbf{\bar{s} = 0.2001}$, with the lowest proportion of negative silhouettes at $15.6\%$), before plateauing at $K=7, 8$ where small splinter clusters of size $8$ appear. Furthermore, at $K=6$ the largest cluster share drops from $47.1\%$ ($n=124$ at $K=5$) to a well-balanced $24.0\%$ ($n=63$), yielding six substantive groups of sizes $63, 61, 55, 46, 20, 18$.
 
 \begin{figure}[H]
     \centering
@@ -273,8 +326,8 @@ Under Average Linkage, $\bar{s}$ rises monotonically from $K=2$ ($0.1023$) to a 
 
 To answer \textbf{RQ3}, we conducted two rigorous stability experiments (Figure \ref{fig:stability}):
 \begin{enumerate}
-    \item \textbf{Row-Order Permutation Sensitivity (100 Random Shuffles):} Because internal merges at $h \in \{0.0, 0.2, 0.4\}$ contain ties, randomly permuting respondent row order tests whether tie-breaking alters final cluster membership. Complete Linkage collapses under row shuffling ($\text{mean ARI} = 0.041$--$0.135$), whereas Average Linkage achieves substantially higher order stability, peaking at $K=5$ ($\text{ARI} = 0.572 \pm 0.089$) and $K=6$ ($\text{ARI} = 0.498 \pm 0.090$).
-    \item \textbf{$80\%$ Subsampling Stability (100 Random Subsets of $n_{\text{sub}} = 209$ Without Replacement):} Comparing each subsample partition to the full-data partition via the Adjusted Rand Index confirms strong structural recovery for Average Linkage at $K=5$ ($\text{mean ARI} = 0.568, \text{median} = 0.591, \text{IQR} = 0.128$) and $K=6$ ($\text{mean ARI} = 0.523, \text{median} = 0.533, \text{IQR} = 0.146$).
+    \item \textbf{Row-Order Permutation Sensitivity (100 Random Shuffles):} Because internal merges at $h \in \{0.0, 0.2, 0.4\}$ contain ties, randomly permuting respondent row order tests whether tie-breaking alters final cluster membership. Complete Linkage collapses under row shuffling ($\text{mean ARI} = 0.074$--$0.137$), whereas Average Linkage achieves substantially higher order stability, peaking at $K=5$ ($\text{ARI} = 0.573 \pm 0.103$) and $K=6$ ($\text{ARI} = 0.511 \pm 0.093$).
+    \item \textbf{$80\%$ Subsampling Stability (100 Random Subsets of $n_{\text{sub}} = 210$ Without Replacement):} Comparing each subsample partition to the full-data partition via the Adjusted Rand Index confirms strong structural recovery for Average Linkage at $K=5$ ($\text{mean ARI} = 0.555, \text{median} = 0.574, \text{IQR} = 0.169$) and $K=6$ ($\text{mean ARI} = 0.522, \text{median} = 0.532, \text{IQR} = 0.108$).
 \end{enumerate}
 
 \begin{figure}[H]
@@ -285,7 +338,7 @@ To answer \textbf{RQ3}, we conducted two rigorous stability experiments (Figure 
 \end{figure}
 
 \subsection{Behavioral Archetypes and Cluster Profiling (RQ1)}
-Table \ref{tab:profiles} and Figure \ref{fig:profiles} present the within-cluster response percentages across all options of $Q_1$--$Q_5$ for the optimal $K=6$ Average Linkage partition. Notably, the hierarchy between $K=5$ and $K=6$ has a transparent substantive interpretation: at $K=5$, Clusters 3 and 4 form a combined $128$-student group of \textit{Self-Reliant \& Course-Material Verifiers} who overwhelmingly select Option \texttt{A} in $Q_3$ (\textit{independently search for another source to verify the missing paper}). At $K=6$, this super-cluster splits cleanly into \textbf{Cluster 3 (\textit{Independent Problem-Solvers}, $n=60$)} and \textbf{Cluster 4 (\textit{Course-Material Verifiers}, $n=68$)}.
+Table \ref{tab:profiles} and Figure \ref{fig:profiles} present the within-cluster response percentages across all options of $Q_1$--$Q_5$ for the optimal $K=6$ Average Linkage partition. Notably, the hierarchy between $K=5$ and $K=6$ has a transparent substantive interpretation: at $K=5$, Clusters 3 and 4 form a combined $124$-student group of \textit{Self-Reliant \& Course-Material Verifiers} who overwhelmingly select Option \texttt{A} in $Q_3$ (\textit{independently search for another source to verify the missing paper}). At $K=6$, this super-cluster splits cleanly into \textbf{Cluster 3 (\textit{Independent Problem-Solvers}, $n=61$)} and \textbf{Cluster 4 (\textit{Course-Material Verifiers}, $n=63$)}.
 
 \begin{table}[H]
 \centering
@@ -298,37 +351,37 @@ Table \ref{tab:profiles} and Figure \ref{fig:profiles} present the within-cluste
 \midrule
 \textbf{C1: Cross-AI \& Peer} & $Q_1$ (Disagree) & 15.2 & 4.3 & 13.0 & \textbf{60.9} & 6.5 & 0.0 & Ask a different AI \\
 \textbf{Triangulators} & $Q_2$ (2 AIs) & 6.5 & 8.7 & 13.0 & \textbf{47.8} & 15.2 & 8.7 & Ask a third AI \\
-($n = 46, 17.6\%$) & $Q_3$ (No Paper) & 15.2 & 4.3 & \textbf{65.2} & 10.9 & 4.3 & --- & Ask different AI if true \\
+($n = 46, 17.5\%$) & $Q_3$ (No Paper) & 15.2 & 4.3 & \textbf{65.2} & 10.9 & 4.3 & --- & Ask different AI if true \\
 $\bar{Q}_6 = 3.67\text{ d/wk}$ & $Q_4$ (Unclear Step) & 15.2 & 4.3 & 15.2 & \textbf{52.2} & 13.0 & --- & Ask a classmate \\
  & $Q_5$ (AI Flips) & 8.7 & 10.9 & 6.5 & \textbf{58.7} & 8.7 & 6.5 & Ask a different AI \\
 \midrule
-\textbf{C2: Same-AI} & $Q_1$ (Disagree) & 10.2 & 2.0 & \textbf{71.4} & 8.2 & 2.0 & 6.1 & Ask same AI why B wrong \\
-\textbf{Conversationalists} & $Q_2$ (2 AIs) & 26.5 & 14.3 & \textbf{46.9} & 2.0 & 4.1 & 6.1 & Send 2nd to 1st AI \\
-($n = 49, 18.8\%$) & $Q_3$ (No Paper) & 22.4 & \textbf{71.4} & 2.0 & 2.0 & 2.0 & --- & Ask same AI for DOI \\
-$\bar{Q}_6 = 4.63\text{ d/wk}$ & $Q_4$ (Unclear Step) & 4.1 & 10.2 & \textbf{77.6} & 4.1 & 4.1 & --- & Ask same AI to explain \\
- & $Q_5$ (AI Flips) & 10.2 & 14.3 & \textbf{59.2} & 8.2 & 6.1 & 2.0 & Ask AI to compare both \\
+\textbf{C2: Same-AI} & $Q_1$ (Disagree) & 9.1 & 3.6 & \textbf{65.5} & 9.1 & 3.6 & 9.1 & Ask same AI why B wrong \\
+\textbf{Conversationalists} & $Q_2$ (2 AIs) & 32.7 & 9.1 & \textbf{45.5} & 3.6 & 3.6 & 5.5 & Send 2nd to 1st AI \\
+($n = 55, 20.9\%$) & $Q_3$ (No Paper) & 25.5 & \textbf{65.5} & 3.6 & 3.6 & 1.8 & --- & Ask same AI for DOI \\
+$\bar{Q}_6 = 4.67\text{ d/wk}$ & $Q_4$ (Unclear Step) & 1.8 & 7.3 & \textbf{83.6} & 3.6 & 3.6 & --- & Ask same AI to explain \\
+ & $Q_5$ (AI Flips) & 20.0 & 9.1 & \textbf{56.4} & 7.3 & 5.5 & 1.8 & Ask AI to compare both \\
 \midrule
-\textbf{C3: Independent} & $Q_1$ (Disagree) & 18.3 & \textbf{60.0} & 5.0 & 3.3 & 8.3 & 5.0 & Re-solve independently \\
-\textbf{Problem-Solvers} & $Q_2$ (2 AIs) & 10.0 & \textbf{51.7} & 10.0 & 10.0 & 6.7 & 11.7 & Solve independently \\
-($n = 60, 23.0\%$) & $Q_3$ (No Paper) & \textbf{60.0} & 18.3 & 6.7 & 3.3 & 11.7 & --- & Search another source \\
-$\bar{Q}_6 = 3.90\text{ d/wk}$ & $Q_4$ (Unclear Step) & 8.3 & \textbf{70.0} & 5.0 & 3.3 & 13.3 & --- & Derive step 4 myself \\
- & $Q_5$ (AI Flips) & 6.7 & \textbf{60.0} & 15.0 & 3.3 & 15.0 & 0.0 & Solve independently \\
+\textbf{C3: Independent} & $Q_1$ (Disagree) & 18.0 & \textbf{57.4} & 8.2 & 3.3 & 8.2 & 4.9 & Re-solve independently \\
+\textbf{Problem-Solvers} & $Q_2$ (2 AIs) & 9.8 & \textbf{54.1} & 8.2 & 9.8 & 6.6 & 11.5 & Solve independently \\
+($n = 61, 23.2\%$) & $Q_3$ (No Paper) & \textbf{60.7} & 18.0 & 6.6 & 3.3 & 11.5 & --- & Search another source \\
+$\bar{Q}_6 = 3.89\text{ d/wk}$ & $Q_4$ (Unclear Step) & 9.8 & \textbf{70.5} & 3.3 & 3.3 & 13.1 & --- & Derive step 4 myself \\
+ & $Q_5$ (AI Flips) & 6.6 & \textbf{62.3} & 13.1 & 3.3 & 14.8 & 0.0 & Solve independently \\
 \midrule
-\textbf{C4: Course-Material} & $Q_1$ (Disagree) & \textbf{52.9} & 7.4 & 10.3 & 10.3 & 8.8 & 10.3 & Check course material \\
-\textbf{Verifiers} & $Q_2$ (2 AIs) & \textbf{55.9} & 0.0 & 10.3 & 10.3 & 13.2 & 10.3 & Check course material \\
-($n = 68, 26.1\%$) & $Q_3$ (No Paper) & \textbf{67.6} & 1.5 & 7.4 & 11.8 & 11.8 & --- & Search another source \\
-$\bar{Q}_6 = 4.41\text{ d/wk}$ & $Q_4$ (Unclear Step) & \textbf{44.1} & 13.2 & 14.7 & 19.1 & 8.8 & --- & Look up in course mat. \\
- & $Q_5$ (AI Flips) & \textbf{67.6} & 4.4 & 13.2 & 1.5 & 7.4 & 5.9 & Check course material \\
+\textbf{C4: Course-Material} & $Q_1$ (Disagree) & \textbf{57.1} & 7.9 & 7.9 & 11.1 & 7.9 & 7.9 & Check course material \\
+\textbf{Verifiers} & $Q_2$ (2 AIs) & \textbf{54.0} & 0.0 & 9.5 & 11.1 & 14.3 & 11.1 & Check course material \\
+($n = 63, 24.0\%$) & $Q_3$ (No Paper) & \textbf{68.3} & 1.6 & 6.3 & 11.1 & 12.7 & --- & Search another source \\
+$\bar{Q}_6 = 4.40\text{ d/wk}$ & $Q_4$ (Unclear Step) & \textbf{47.6} & 14.3 & 7.9 & 20.6 & 9.5 & --- & Look up in course mat. \\
+ & $Q_5$ (AI Flips) & \textbf{65.1} & 4.8 & 14.3 & 1.6 & 7.9 & 6.3 & Check course material \\
 \midrule
 \textbf{C5: Uncritical AI} & $Q_1$ (Disagree) & 0.0 & 0.0 & 10.0 & 0.0 & \textbf{85.0} & 5.0 & Change to D unverified \\
 \textbf{Conformers} & $Q_2$ (2 AIs) & 10.0 & \textbf{40.0} & 10.0 & 0.0 & 35.0 & 5.0 & Solve / Pick usual AI \\
-($n = 20, 7.7\%$) & $Q_3$ (No Paper) & 15.0 & 10.0 & 5.0 & \textbf{60.0} & 10.0 & --- & Use claim, omit citation \\
+($n = 20, 7.6\%$) & $Q_3$ (No Paper) & 15.0 & 10.0 & 5.0 & \textbf{60.0} & 10.0 & --- & Use claim, omit citation \\
 $\bar{Q}_6 = 2.85\text{ d/wk}$ & $Q_4$ (Unclear Step) & 25.0 & 15.0 & 10.0 & 10.0 & \textbf{40.0} & --- & Use unclarified solution \\
  & $Q_5$ (AI Flips) & 10.0 & 10.0 & 0.0 & 30.0 & \textbf{45.0} & 5.0 & Accept D unverified \\
 \midrule
 \textbf{C6: AI-Skeptical} & $Q_1$ (Disagree) & 0.0 & 16.7 & 0.0 & 0.0 & 5.6 & \textbf{77.8} & Keep own B unverified \\
 \textbf{Anchors} & $Q_2$ (2 AIs) & 16.7 & 11.1 & 16.7 & 11.1 & 0.0 & \textbf{44.4} & Leave task unanswered \\
-($n = 18, 6.9\%$) & $Q_3$ (No Paper) & 11.1 & 22.2 & 0.0 & 5.6 & \textbf{61.1} & --- & Remove claim immediately \\
+($n = 18, 6.8\%$) & $Q_3$ (No Paper) & 11.1 & 22.2 & 0.0 & 5.6 & \textbf{61.1} & --- & Remove claim immediately \\
 $\bar{Q}_6 = 4.44\text{ d/wk}$ & $Q_4$ (Unclear Step) & 0.0 & 5.6 & 11.1 & \textbf{44.4} & 38.9 & --- & Ask classmate / Use as-is \\
  & $Q_5$ (AI Flips) & 0.0 & 5.6 & 11.1 & 5.6 & 11.1 & \textbf{66.7} & Keep B without checking \\
 \bottomrule
@@ -338,12 +391,12 @@ $\bar{Q}_6 = 4.44\text{ d/wk}$ & $Q_4$ (Unclear Step) & 0.0 & 5.6 & 11.1 & \text
 
 The six clusters represent highly coherent behavioral archetypes:
 \begin{enumerate}
-    \item \textbf{C4 --- Course-Material Verifiers ($n=68, 26.1\%$):} The largest group anchors verification in authoritative academic sources, checking course materials in $Q_1$ ($52.9\%$), $Q_2$ ($55.9\%$), $Q_4$ ($44.1\%$), and $Q_5$ ($67.6\%$), and searching independent scholarly literature in $Q_3$ ($67.6\%$).
-    \item \textbf{C3 --- Independent Problem-Solvers ($n=60, 23.0\%$):} Rather than looking up reference answers, these students rely on their own analytical reasoning---re-solving problems independently in $Q_1$ ($60.0\%$), $Q_2$ ($51.7\%$), and $Q_5$ ($60.0\%$), deriving the missing step themselves in $Q_4$ ($70.0\%$), and independently verifying literature in $Q_3$ ($60.0\%$).
-    \item \textbf{C2 --- Same-AI Conversationalists ($n=49, 18.8\%$):} These students resolve uncertainty by staying inside the chat interface and interrogating the same AI---asking why B is wrong ($71.4\%$), asking the first AI to compare explanations ($46.9\%$), requesting a DOI link from the AI ($71.4\%$), asking the AI to explain step 3$\to$4 ($77.6\%$), and asking why its answer changed ($59.2\%$).
-    \item \textbf{C1 --- Cross-AI \& Peer Triangulators ($n=46, 17.6\%$):} Instead of trusting one model, they seek a second opinion from another AI ($60.9\%$ in $Q_1$, $47.8\%$ in $Q_2$, $65.2\%$ in $Q_3$, $58.7\%$ in $Q_5$) or a human classmate ($52.2\%$ in $Q_4$).
-    \item \textbf{C5 --- Uncritical AI Conformers ($n=20, 7.7\%$):} A smaller but educationally critical group that defers to AI authority without verification---abandoning their own answer for D ($85.0\%$ in $Q_1$), using unverified claims while omitting the missing citation ($60.0\%$ in $Q_3$), copying unclear steps ($40.0\%$ in $Q_4$), and accepting sycophantic reversals ($45.0\%$ in $Q_5$).
-    \item \textbf{C6 --- AI-Skeptical Anchors ($n=18, 6.9\%$):} The mirror opposite of C5: when AI conflicts or behaves inconsistently, they reject the AI output outright without further investigation---keeping their own answer B ($77.8\%$ in $Q_1$, $66.7\%$ in $Q_5$), dropping the unverified claim ($61.1\%$ in $Q_3$), or postponing the task ($44.4\%$ in $Q_2$).
+    \item \textbf{C4 --- Course-Material Verifiers ($n=63, 24.0\%$):} The largest group anchors verification in authoritative academic sources, checking course materials in $Q_1$ ($57.1\%$), $Q_2$ ($54.0\%$), $Q_4$ ($47.6\%$), and $Q_5$ ($65.1\%$), and searching independent scholarly literature in $Q_3$ ($68.3\%$).
+    \item \textbf{C3 --- Independent Problem-Solvers ($n=61, 23.2\%$):} Rather than looking up reference answers, these students rely on their own analytical reasoning---re-solving problems independently in $Q_1$ ($57.4\%$), $Q_2$ ($54.1\%$), and $Q_5$ ($62.3\%$), deriving the missing step themselves in $Q_4$ ($70.5\%$), and independently verifying literature in $Q_3$ ($60.7\%$).
+    \item \textbf{C2 --- Same-AI Conversationalists ($n=55, 20.9\%$):} These students resolve uncertainty by staying inside the chat interface and interrogating the same AI---asking why B is wrong ($65.5\%$), asking the first AI to compare explanations ($45.5\%$), requesting a DOI link from the AI ($65.5\%$), asking the AI to explain step 3$\to$4 ($83.6\%$), and asking why its answer changed ($56.4\%$).
+    \item \textbf{C1 --- Cross-AI \& Peer Triangulators ($n=46, 17.5\%$):} Instead of trusting one model, they seek a second opinion from another AI ($60.9\%$ in $Q_1$, $47.8\%$ in $Q_2$, $65.2\%$ in $Q_3$, $58.7\%$ in $Q_5$) or a human classmate ($52.2\%$ in $Q_4$).
+    \item \textbf{C5 --- Uncritical AI Conformers ($n=20, 7.6\%$):} A smaller but educationally critical group that defers to AI authority without verification---abandoning their own answer for D ($85.0\%$ in $Q_1$), using unverified claims while omitting the missing citation ($60.0\%$ in $Q_3$), copying unclear steps ($40.0\%$ in $Q_4$), and accepting sycophantic reversals ($45.0\%$ in $Q_5$).
+    \item \textbf{C6 --- AI-Skeptical Anchors ($n=18, 6.8\%$):} The mirror opposite of C5: when AI conflicts or behaves inconsistently, they reject the AI output outright without further investigation---keeping their own answer B ($77.8\%$ in $Q_1$, $66.7\%$ in $Q_5$), dropping the unverified claim ($61.1\%$ in $Q_3$), or postponing the task ($44.4\%$ in $Q_2$).
 \end{enumerate}
 
 \begin{figure}[H]
@@ -363,19 +416,19 @@ Because differences on $Q_1$--$Q_5$ are internal to how the clusters were constr
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lcccccccc}
 \toprule
- & \multicolumn{3}{c}{\textbf{AI Usage $Q_6$ (Days/Week)}} & \multicolumn{5}{c}{\textbf{Year of Study $S_4$ (Row $\%$ within Cluster, $n=255$)}} \\
+ & \multicolumn{3}{c}{\textbf{AI Usage $Q_6$ (Days/Week)}} & \multicolumn{5}{c}{\textbf{Year of Study $S_4$ (Row $\%$ within Cluster, $n=257$)}} \\
 \cmidrule(lr){2-4} \cmidrule(lr){5-9}
 \textbf{Cluster ($K=6$)} & $\mathbf{n}$ & \textbf{Mean $\pm$ SD} & \textbf{Med (IQR)} & \textbf{1st Yr} & \textbf{2nd Yr} & \textbf{3rd Yr} & \textbf{4th Yr} & \textbf{Grad/Master} \\
 \midrule
 \textbf{C1: Cross-AI \& Peer} & 46 & $3.67 \pm 2.04$ & $3.0$ ($2.75$) & $20.0\%$ & $31.1\%$ & $15.6\%$ & $31.1\%$ & $2.2\%$ \\
-\textbf{C2: Same-AI Probe}    & 49 & $\mathbf{4.63 \pm 1.95}$ & $\mathbf{5.0}$ ($3.00$) & $29.2\%$ & $14.6\%$ & $27.1\%$ & $27.1\%$ & $2.1\%$ \\
-\textbf{C3: Self-Solvers}     & 60 & $3.90 \pm 2.30$ & $4.0$ ($4.00$) & $19.3\%$ & $\mathbf{38.6\%}$ & $10.5\%$ & $\mathbf{31.6\%}$ & $0.0\%$ \\
-\textbf{C4: Course Material}  & 68 & $4.41 \pm 1.96$ & $5.0$ ($3.00$) & $25.0\%$ & $22.1\%$ & $\mathbf{29.4\%}$ & $23.5\%$ & $0.0\%$ \\
-\textbf{C5: AI Conformers}    & 20 & $\mathbf{2.85 \pm 1.95}$ & $\mathbf{3.0}$ ($3.00$) & $\mathbf{42.1\%}$ & $5.3\%$ & $5.3\%$ & $15.8\%$ & $\mathbf{31.6\%}$ \\
-\textbf{C6: Skeptic Anchors}  & 18 & $4.44 \pm 2.43$ & $5.0$ ($4.75$) & $22.2\%$ & $33.3\%$ & $5.6\%$ & $16.7\%$ & $\mathbf{22.2\%}$ \\
+\textbf{C2: Same-AI Probe} & 55 & $\mathbf{4.67 \pm 1.86}$ & $\mathbf{5.0}$ ($2.50$) & $29.6\%$ & $14.8\%$ & $27.8\%$ & $25.9\%$ & $1.9\%$ \\
+\textbf{C3: Self-Solvers} & 61 & $3.89 \pm 2.29$ & $4.0$ ($4.00$) & $19.0\%$ & $\mathbf{37.9\%}$ & $10.3\%$ & $\mathbf{32.8\%}$ & $0.0\%$ \\
+\textbf{C4: Course Material} & 63 & $4.40 \pm 2.01$ & $5.0$ ($3.00$) & $23.8\%$ & $23.8\%$ & $\mathbf{28.6\%}$ & $23.8\%$ & $0.0\%$ \\
+\textbf{C5: AI Conformers} & 20 & $\mathbf{2.85 \pm 1.95}$ & $\mathbf{3.0}$ ($3.00$) & $\mathbf{42.1\%}$ & $5.3\%$ & $5.3\%$ & $15.8\%$ & $\mathbf{31.6\%}$ \\
+\textbf{C6: Skeptic Anchors} & 18 & $4.44 \pm 2.43$ & $5.0$ ($4.75$) & $22.2\%$ & $33.3\%$ & $5.6\%$ & $16.7\%$ & $\mathbf{22.2\%}$ \\
 \midrule
-\multicolumn{9}{l}{\scriptsize \textbf{Statistical Tests:} $Q_6$: Kruskal-Wallis $H = 14.144, \text{df}=5, \mathbf{p = 0.0147}$; One-way ANOVA $F(5,255) = 2.957, \mathbf{p = 0.0130}$.} \\
-\multicolumn{9}{l}{\scriptsize $S_4$: Pearson's $\chi^2 = 76.659$, Monte Carlo simulated $\mathbf{p = 0.0001}$ ($10{,}000$ replicates). (At $K=5$: $H$-test $p=0.0140$, $\chi^2 = 66.28, p=0.0001$).} \\
+\multicolumn{9}{l}{\scriptsize \textbf{Statistical Tests:} $Q_6$: Kruskal-Wallis $H = 15.023, \text{df}=5, \mathbf{p = 0.0103}$; One-way ANOVA $F(5,257) = 3.148, \mathbf{p = 0.0089}$.} \\
+\multicolumn{9}{l}{\scriptsize $S_4$: Pearson's $\chi^2 = 77.045$, Monte Carlo simulated $\mathbf{p = 0.0001}$ ($10{,}000$ replicates). (At $K=5$: $H$-test $p=0.0097$, $\chi^2 = 68.13, p=0.0001$).} \\
 \bottomrule
 \end{tabular}%
 }
@@ -390,15 +443,15 @@ Because differences on $Q_1$--$Q_5$ are internal to how the clusters were constr
 
 Both external validation tests are statistically significant and reveal compelling behavioral insights:
 \begin{itemize}
-    \item \textbf{AI Usage Frequency ($Q_6$, $p = 0.0147$):} Counter to the naive assumption that heavy AI users blindly trust AI, \textbf{Uncritical AI Conformers (C5)} actually have the \textit{lowest} weekly AI usage ($\bar{Q}_6 = 2.85 \pm 1.95$ days/week, median $3.0$), whereas \textbf{Same-AI Conversationalists (C2)} have the \textit{highest} usage ($\bar{Q}_6 = 4.63 \pm 1.95$ days/week, median $5.0$), closely followed by \textbf{AI-Skeptical Anchors (C6)} ($4.44$ days) and \textbf{Course-Material Verifiers (C4)} ($4.41$ days). Frequent users have developed habits of iterative follow-up prompting or healthy skepticism toward AI hallucinations, whereas infrequent users are more prone to treat a single AI response as final authority.
+    \item \textbf{AI Usage Frequency ($Q_6$, $p = 0.0103$):} Counter to the naive assumption that heavy AI users blindly trust AI, \textbf{Uncritical AI Conformers (C5)} actually have the \textit{lowest} weekly AI usage ($\bar{Q}_6 = 2.85 \pm 1.95$ days/week, median $3.0$), whereas \textbf{Same-AI Conversationalists (C2)} have the \textit{highest} usage ($\bar{Q}_6 = 4.67 \pm 1.86$ days/week, median $5.0$), closely followed by \textbf{AI-Skeptical Anchors (C6)} ($4.44$ days) and \textbf{Course-Material Verifiers (C4)} ($4.40$ days). Frequent users have developed habits of iterative follow-up prompting or healthy skepticism toward AI hallucinations, whereas infrequent users are more prone to treat a single AI response as final authority.
     \item \textbf{Year of Study ($S_4$, $p = 0.0001$):} Active academic verification (C3 \textit{Independent Problem-Solvers} and C4 \textit{Course-Material Verifiers}) is overwhelmingly concentrated among undergraduate cohorts (Years 1--4 account for $100\%$ of known respondents in C3 and C4). Conversely, \textbf{Uncritical AI Conformers (C5)} are disproportionately composed of 1st-year freshmen ($42.1\%$, who may lack domain confidence to challenge an AI explanation) and time-constrained Graduate/Master's students ($31.6\%$).
 \end{itemize}
 
 \section{Conclusions and Limitations}
 
-\textbf{Summary of Findings:} (1) Answering \textbf{RQ1}, VGU students do not respond uniformly to uncertain AI outputs; nearly half ($49.1\%$) engage in rigorous academic verification---either via course materials (C4, $26.1\%$) or independent mathematical derivation (C3, $23.0\%$)---while $36.4\%$ rely on secondary AI/peer consultas (C2, $18.8\%$; C1, $17.6\%$), and smaller minorities exhibit uncritical conformity (C5, $7.7\%$) or skeptical rejection (C6, $6.9\%$). (2) Answering \textbf{RQ2}, Average Linkage (UPGMA) strongly outperforms Single and Complete Linkage on low-dimensional nominal Hamming spaces by resolving discrete merge-height ties into $67$ distinct rational levels ($r_{\text{coph}} = 0.6221$). (3) Answering \textbf{RQ3}, the identified clusters exhibit substantial subsample stability ($\text{ARI} = 0.523$--$0.568$) and demonstrate strong external validity across both weekly AI usage ($p = 0.0147$) and academic seniority ($p = 0.0001$).
+\textbf{Summary of Findings:} (1) Answering \textbf{RQ1}, VGU students do not respond uniformly to uncertain AI outputs; nearly half ($47.1\%$) engage in rigorous academic verification---either via course materials (C4, $24.0\%$) or independent mathematical derivation (C3, $23.2\%$)---while $38.4\%$ rely on secondary AI/peer consultas (C2, $20.9\%$; C1, $17.5\%$), and smaller minorities exhibit uncritical conformity (C5, $7.6\%$) or skeptical rejection (C6, $6.8\%$). (2) Answering \textbf{RQ2}, Average Linkage (UPGMA) strongly outperforms Single and Complete Linkage on low-dimensional nominal Hamming spaces by resolving discrete merge-height ties into $66$ distinct rational levels ($r_{\text{coph}} = 0.6275$). (3) Answering \textbf{RQ3}, the identified clusters exhibit substantial subsample stability ($\text{ARI} = 0.522$--$0.555$) and demonstrate strong external validity across both weekly AI usage ($p = 0.0103$) and academic seniority ($p = 0.0001$).
 
-\textbf{Limitations:} Our findings describe self-reported first intentions among $n = 261$ VGU students rather than observed behavioral logs or academic grades. Furthermore, unweighted Hamming distance treats all nominal mismatches within a question equally and is slightly influenced by the higher baseline match probability of 5-option scenarios ($Q_3, Q_4$) relative to 6-option scenarios ($Q_1, Q_2, Q_5$). Future work could incorporate weighted semantic dissimilarities or longitudinal observational tracking.
+\textbf{Limitations:} Our findings describe self-reported first intentions among $n = 263$ VGU students rather than observed behavioral logs or academic grades. Furthermore, unweighted Hamming distance treats all nominal mismatches within a question equally and is slightly influenced by the higher baseline match probability of 5-option scenarios ($Q_3, Q_4$) relative to 6-option scenarios ($Q_1, Q_2, Q_5$). Future work could incorporate weighted semantic dissimilarities or longitudinal observational tracking.
 
 \begin{thebibliography}{9}
 \footnotesize

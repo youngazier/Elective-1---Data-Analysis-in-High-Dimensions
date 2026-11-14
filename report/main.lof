@@ -1,0 +1,7 @@
+\contentsline {figure}{\numberline {1}{\ignorespaces Marginal percentage distributions of student responses across scenarios $Q_1$--$Q_5$ ($n = 263$).}}{6}{figure.caption.4}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Empirical distribution of Normalized Hamming distances across all $34{,}453$ pairs of respondents.}}{7}{figure.caption.5}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Comparison of Single, Complete, and Average Linkage dendrograms ($n = 263$) with $K=6$ cut boxes.}}{8}{figure.caption.6}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Left: Average Silhouette Width $\bar {s}$ across $K=2\dots 8$. Right: Largest cluster percentage showing severe chaining in Single Linkage vs.\ balanced partitioning in Average Linkage.}}{9}{figure.caption.8}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Left: Distribution of Adjusted Rand Index (ARI) across $100$ random $80\%$ subsamples for Average Linkage. Right: Mean row-permutation ARI across $100$ random dataset shuffles.}}{9}{figure.caption.9}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Within-cluster response distributions across $Q_1$--$Q_5$ for the six behavioral archetypes ($K=6$).}}{11}{figure.caption.11}%
+\contentsline {figure}{\numberline {7}{\ignorespaces External validation of $K=6$ clusters against Weekly AI Usage ($Q_6$, left) and Year of Study ($S_4$, right).}}{12}{figure.caption.13}%
