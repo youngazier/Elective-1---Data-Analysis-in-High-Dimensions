@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  14 NOV 2026 22:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  17 NOV 2026 09:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -651,100 +651,166 @@ nal ob-ser-va-tion vec-tor $[] \OT1/lmr/m/n/10.95 = (\OML/lmm/m/it/10.95 X[]; X
 []; [] ; X[]\OT1/lmr/m/n/10.95 )[]$\T1/lmr/m/n/10.95 . 
  []
 
+</mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag01_dendrogram_cut
+ting.png, id=180, 1846.9pt x 963.6pt>
+File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag01_dendrogra
+m_cutting.png Graphic file (type png)
+<use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag01_dendrogram
+_cutting.png>
+Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
+es/diag01_dendrogram_cutting.png  used on input line 171.
+(pdftex.def)             Requested size: 439.76462pt x 229.4308pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 172.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 172.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 172.
 [2{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texl
 ive/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [3{/usr/share/texlive/texmf-d
-ist/fonts/enc/dvips/lm/lm-mathex.enc}] [4] [5]
+ist/fonts/enc/dvips/lm/lm-mathex.enc} </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-
+1/output/figures/diag01_dendrogram_cutting.png>]
+</mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag02_linkage_method
+s.png, id=214, 1927.2pt x 1304.875pt>
+File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag02_linkage_m
+ethods.png Graphic file (type png)
+<use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag02_linkage_me
+thods.png>
+Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
+es/diag02_linkage_methods.png  used on input line 230.
+(pdftex.def)             Requested size: 454.10422pt x 307.462pt.
+ [4] [5 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag02_linkag
+e_methods.png>]
 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig01_marginal_respon
-ses.pdf, id=210, 614.295pt x 346.29375pt>
+ses.pdf, id=234, 614.295pt x 346.29375pt>
 File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig01_marginal_r
 esponses.pdf Graphic file (type pdf)
 <use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig01_marginal_re
 sponses.pdf>
 Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
-es/fig01_marginal_responses.pdf  used on input line 251.
+es/fig01_marginal_responses.pdf  used on input line 265.
 (pdftex.def)             Requested size: 439.76462pt x 247.9099pt.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 252.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 252.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 252.
+ [6]
 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig02_hamming_distrib
-ution.pdf, id=213, 542.025pt x 325.215pt>
+ution.pdf, id=241, 542.025pt x 325.215pt>
 File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig02_hamming_di
 stribution.pdf Graphic file (type pdf)
 <use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig02_hamming_dis
 tribution.pdf>
 Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
-es/fig02_hamming_distribution.pdf  used on input line 260.
+es/fig02_hamming_distribution.pdf  used on input line 274.
 (pdftex.def)             Requested size: 372.84407pt x 223.71378pt.
- [6 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig01_marginal_re
-sponses.pdf>]
+ [7 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig01_marginal_re
+sponses.pdf> </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig02_ha
+mming_distribution.pdf>]
+</mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag04_cophenetic_cal
+culation.png, id=261, 1967.35pt x 983.675pt>
+File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag04_copheneti
+c_calculation.png Graphic file (type png)
+<use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag04_cophenetic
+_calculation.png>
+Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
+es/diag04_cophenetic_calculation.png  used on input line 289.
+(pdftex.def)             Requested size: 454.10422pt x 227.05101pt.
 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig03_dendrograms_com
-parison.pdf, id=226, 794.97pt x 303.1325pt>
+parison.pdf, id=262, 794.97pt x 303.1325pt>
 File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig03_dendrogram
 s_comparison.pdf Graphic file (type pdf)
 <use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig03_dendrograms
 _comparison.pdf>
 Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
-es/fig03_dendrograms_comparison.pdf  used on input line 281.
+es/fig03_dendrograms_comparison.pdf  used on input line 302.
 (pdftex.def)             Requested size: 468.44382pt x 178.62923pt.
- [7 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig02_hamming_dis
-tribution.pdf>]
+ [8 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag04_cophenetic
+_calculation.png>]
+</mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag03_silhouette_exp
+lained.png, id=274, 1846.9pt x 883.3pt>
+File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag03_silhouett
+e_explained.png Graphic file (type png)
+<use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag03_silhouette
+_explained.png>
+Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
+es/diag03_silhouette_explained.png  used on input line 312.
+(pdftex.def)             Requested size: 439.76462pt x 210.31157pt.
+ [9 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig03_dendrograms
+_comparison.pdf> </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag
+03_silhouette_explained.png>]
 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig04_silhouette_comp
-arison.pdf, id=241, 650.43pt x 310.15875pt>
+arison.pdf, id=285, 650.43pt x 310.15875pt>
 File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig04_silhouette
 _comparison.pdf Graphic file (type pdf)
 <use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig04_silhouette_
 comparison.pdf>
 Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
-es/fig04_silhouette_comparison.pdf  used on input line 322.
+es/fig04_silhouette_comparison.pdf  used on input line 350.
 (pdftex.def)             Requested size: 439.76462pt x 209.7078pt.
 
-[8 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig03_dendrograms_
-comparison.pdf>]
-Overfull \hbox (29.51143pt too wide) in paragraph at lines 330--331
+Overfull \hbox (29.51143pt too wide) in paragraph at lines 358--359
 \T1/lmr/m/n/10.95 In-dex con-firms strong struc-tural re-cov-ery for Av-er-age 
 Link-age at $\OML/lmm/m/it/10.95 K \OT1/lmr/m/n/10.95 = 5$ \T1/lmr/m/n/10.95 ($
 [] \OT1/lmr/m/n/10.95 = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 555\OML/lmm/m/
 it/10.95 ; [] \OT1/lmr/m/n/10.95 =
  []
 
+</mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag06_ari_example_v2
+.png, id=288, 722.7pt x 281.05pt>
+File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag06_ari_examp
+le_v2.png Graphic file (type png)
+<use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag06_ari_exampl
+e_v2.png>
+Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
+es/diag06_ari_example_v2.png  used on input line 363.
+(pdftex.def)             Requested size: 439.76462pt x 171.01997pt.
+[10 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig04_silhouette_
+comparison.pdf>]
 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig05_stability_ari.p
-df, id=254, 614.295pt x 310.15875pt>
+df, id=303, 614.295pt x 310.15875pt>
 File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig05_stability_
 ari.pdf Graphic file (type pdf)
 <use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig05_stability_a
 ri.pdf>
 Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
-es/fig05_stability_ari.pdf  used on input line 335.
+es/fig05_stability_ari.pdf  used on input line 370.
 (pdftex.def)             Requested size: 430.20245pt x 217.21376pt.
-[9 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig04_silhouette_c
-omparison.pdf> </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig05_
-stability_ari.pdf>] [10]
+ [11 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag06_ari_examp
+le_v2.png (PNG copy)> </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures
+/fig05_stability_ari.pdf>]
 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig06_cluster_profile
-s.pdf, id=286, 758.835pt x 397.485pt>
+s.pdf, id=317, 758.835pt x 397.485pt>
 File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig06_cluster_pr
 ofiles.pdf Graphic file (type pdf)
 <use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig06_cluster_pro
 files.pdf>
 Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
-es/fig06_cluster_profiles.pdf  used on input line 404.
+es/fig06_cluster_profiles.pdf  used on input line 439.
 (pdftex.def)             Requested size: 468.44382pt x 245.37675pt.
+ [12]
+</mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag05_external_valid
+ation_methods.png, id=331, 1967.35pt x 1003.75pt>
+File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag05_external_
+validation_methods.png Graphic file (type png)
+<use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag05_external_v
+alidation_methods.png>
+Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
+es/diag05_external_validation_methods.png  used on input line 449.
+(pdftex.def)             Requested size: 454.10422pt x 231.68471pt.
+ [13 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig06_cluster_pr
+ofiles.pdf> </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag05_ex
+ternal_validation_methods.png>]
 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig07_external_valida
-tion.pdf, id=289, 722.7pt x 325.215pt>
+tion.pdf, id=343, 722.7pt x 325.215pt>
 File: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig07_external_v
 alidation.pdf Graphic file (type pdf)
 <use /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig07_external_va
 lidation.pdf>
 Package pdftex.def Info: /mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figur
-es/fig07_external_validation.pdf  used on input line 439.
+es/fig07_external_validation.pdf  used on input line 481.
 (pdftex.def)             Requested size: 458.88895pt x 206.4993pt.
- [11 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig06_cluster_pr
-ofiles.pdf>] [12 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig0
-7_external_validation.pdf>] [13]
+
+[14 </mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/fig07_external_va
+lidation.pdf>] [15]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 473.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 515.
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
@@ -756,13 +822,13 @@ File: lstlang2.sty 2025/11/14 1.11b listings language file
 File: lstlang3.sty 2025/11/14 1.11b listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 477.
+nput line 519.
 
 (/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/code/analysis.R
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <8> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1.
- [14] [15] [16]
-[17] [18] [19] [20] [21]) [22] (./main.aux)
+ [16] [17] [18]
+[19] [20] [21] [22] [23]) [24] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
@@ -771,11 +837,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: EFA4073623562680F41AC4724E938253;5211.
  ) 
 Here is how much of TeX's memory you used:
- 16508 strings out of 469296
- 254171 string characters out of 5465560
- 1273293 words of memory out of 6000000
- 44396 multiletter control sequences out of 15000+600000
- 741006 words of font info for 112 fonts, out of 8000000 for 9000
+ 16566 strings out of 469296
+ 258375 string characters out of 5465560
+ 1276501 words of memory out of 6000000
+ 44445 multiletter control sequences out of 15000+600000
+ 743998 words of font info for 113 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  75i,13n,79p,2100b,2895s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/t
@@ -797,10 +863,10 @@ ublic/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtk10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on main.pdf (27 pages, 692334 bytes).
+Output written on main.pdf (29 pages, 1645305 bytes).
 PDF statistics:
- 1253 PDF objects out of 1440 (max. 8388607)
- 1142 compressed objects within 12 object streams
- 708 named destinations out of 1000 (max. 500000)
- 174 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1298 PDF objects out of 1440 (max. 8388607)
+ 1178 compressed objects within 12 object streams
+ 716 named destinations out of 1000 (max. 500000)
+ 204 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -235,6 +235,9 @@ $$
 
 - **Average silhouette width** $\bar s$: the mean of s(i) over all students. **Higher is better.** We tried K = 2…8 and chose the K with the highest value: **K = 6, s̄ = 0.200**.
 - **Negative silhouette %**: share of students who seem misplaced. At K = 6 it is lowest (15.6%).
+  - **How to calculate it:** For every student $i$, check if $s(i) < 0$ (which happens whenever $a(i) > b(i)$ — meaning they are closer on average to a neighbouring cluster than to their own). Then take the percentage:
+    $$\text{Negative silhouette \%} = \frac{\text{count of students with } s(i) < 0}{n} \times 100\%$$
+    *(In R: `mean(sil[, 3] < 0) * 100`.)*
 - **Max cluster %**: size of the biggest cluster. A huge value (98%) signals chaining. At K = 6 it is 24.0%, which is balanced.
 
 ![Average Silhouette Width and Chaining Diagnostic](output/figures/fig04_silhouette_comparison.png)

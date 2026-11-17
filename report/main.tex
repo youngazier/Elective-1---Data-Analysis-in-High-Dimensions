@@ -160,11 +160,18 @@ Following the course formulation of multivariate cluster analysis \cite{andersso
 \end{equation}
 so that each respondent $i$ is represented by a $p$-dimensional observation vector $\vec{X}_i = (X_{i1}, X_{i2}, \dots, X_{ip})^\top$.
 
-Cluster analysis methods divide broadly into \textit{non-hierarchical methods} (such as MacQueen's $K$-means algorithm, which iteratively reallocates observations to $K$ pre-specified centroids) and \textit{hierarchical methods}. Hierarchical methods construct a nested sequence of partitions represented visually as a two-dimensional tree diagram (\textit{dendrogram}), operating in one of two directions:
+Cluster analysis methods divide broadly into \textit{non-hierarchical methods} (such as MacQueen's $K$-means algorithm, which iteratively reallocates observations to $K$ pre-specified centroids) and \textit{hierarchical methods}. Hierarchical methods construct a nested sequence of partitions represented visually as a two-dimensional tree diagram (\textit{dendrogram}, illustrated in Figure~\ref{fig:diag_dendrogram}), operating in one of two directions:
 \begin{enumerate}
     \item \textbf{Agglomerative Hierarchical Algorithms (Bottom-Up):} Start at step $0$ with $n$ singleton clusters $\{C_1, \dots, C_n\}$ where $C_i = \{\vec{X}_i\}$. At each subsequent step $t = 1, \dots, n-1$, the two closest existing clusters $C_r$ and $C_s$ (according to an inter-cluster linkage dissimilarity $d_{rs}$) are merged into a single cluster $C_r \cup C_s$, reducing the number of clusters by one until all $n$ sample units form a single cluster of size $n$.
     \item \textbf{Divisive Hierarchical Algorithms (Top-Down):} Start with all $n$ observations in a single cluster and recursively split one existing cluster into two daughter clusters at each step. Because divisive splitting requires evaluating $2^{n-1}-1$ possible bipartitions at the first step alone, agglomerative algorithms are used far more widely in practice.
 \end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag01_dendrogram_cutting.png}
+    \caption{Conceptual illustration of agglomerative dendrogram construction and horizontal tree cutting to obtain $K=4$ clusters.}
+    \label{fig:diag_dendrogram}
+\end{figure}
 
 \subsection{Nominal Feature Space and Normalized Hamming Distance}
 To cluster sample units, we first require a pairwise \textit{measure of association} (dissimilarity) $d(\vec{X}_i, \vec{X}_j)$ between observation vectors $\vec{X}_i$ and $\vec{X}_j$. As established in lecture \cite{andersson2026}, a valid metric distance function must satisfy four axiomatic properties for all $\vec{X}_i, \vec{X}_j, \vec{X}_k$:
@@ -188,7 +195,7 @@ For $p = 5$ scenarios, $d_H(\vec{X}_i, \vec{X}_j)$ measures the exact proportion
 It is straightforward to verify that $d_H$ satisfies all four metric axioms (\ref{eq:sym})--(\ref{eq:tri}) on the space of response profiles: $\delta(a,b) = \delta(b,a)$ ensures symmetry; $\delta(a,b) \ge 0$ with equality if and only if $a=b$ ensures positivity and identity on distinct profiles $\vec{X}_i \neq \vec{X}_j$ (while two distinct students sharing an identical 5-question profile $\vec{X}_i = \vec{X}_j$ legitimately have $d_H = 0$); and since $\delta(X_{ik}, X_{kk'}) \le \delta(X_{ik}, X_{jk}) + \delta(X_{jk}, X_{kk'})$ holds coordinate-wise for the discrete metric, summing over $k=1,\dots,p$ and dividing by $p$ preserves the triangle inequality.
 
 \subsection{Mathematical Formulation of Linkage Criteria}
-Suppose cluster 1 contains $k$ observation vectors $\{\vec{X}_1, \vec{X}_2, \dots, \vec{X}_k\}$ and cluster 2 contains $l$ observation vectors $\{\vec{Y}_1, \vec{Y}_2, \dots, \vec{Y}_l\}$. Following the notation of Prof.\ Dr.\ C.\ Andersson \cite{andersson2026}, the five standard agglomerative linkage methods define inter-cluster dissimilarity $d_{12}$ as follows:
+Suppose cluster 1 contains $k$ observation vectors $\{\vec{X}_1, \vec{X}_2, \dots, \vec{X}_k\}$ and cluster 2 contains $l$ observation vectors $\{\vec{Y}_1, \vec{Y}_2, \dots, \vec{Y}_l\}$. Following the notation of Prof.\ Dr.\ C.\ Andersson \cite{andersson2026}, the standard agglomerative linkage methods define inter-cluster dissimilarity $d_{12}$ as follows (visualized in Figure~\ref{fig:diag_linkage}):
 
 \begin{enumerate}
     \item \textbf{Single Linkage (Nearest-Neighbor):} Defines inter-cluster distance as the minimum distance between any single observation in cluster 1 and any single observation in cluster 2:
@@ -217,6 +224,13 @@ Suppose cluster 1 contains $k$ observation vectors $\{\vec{X}_1, \vec{X}_2, \dot
     \end{equation}
     Because $X_{ijk}$ in our study are unordered nominal labels ($\texttt{A}$--$\texttt{F}$), sample means $\bar{x}_{i\cdot k}$ and squared deviations $|X_{ijk} - \bar{x}_{i\cdot k}|^2$ are undefined without arbitrary numerical coding or high-dimensional one-hot dummy expansion. In contrast, Single, Complete, and Average Linkage operate strictly on the pairwise dissimilarity matrix $D = [d_H(\vec{X}_i, \vec{X}_j)]_{n \times n}$, respecting the nominal scale of the survey.
 \end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag02_linkage_methods.png}
+    \caption{Visual comparison of the four agglomerative linkage rules: Single (nearest neighbor), Complete (furthest neighbor), Average Linkage (UPGMA), and why Centroid/Ward methods are inapplicable to nominal categories.}
+    \label{fig:diag_linkage}
+\end{figure}
 
 \subsection{Strengths and Weaknesses of the Methodology}
 \textbf{Strengths:} (1) Agglomerative clustering with Normalized Hamming distance requires no parametric distributional assumptions or arbitrary numerical scoring of categorical choices; (2) it reveals the full multi-scale hierarchy of student behavior (e.g., showing how broad self-verification splits into textbook lookup versus independent derivation); and (3) Average Linkage smoothing transforms discrete pairwise distances into fine-grained rational cluster distances.
@@ -265,10 +279,17 @@ Figure \ref{fig:marginal} displays the marginal distributions across $Q_1$--$Q_5
 \section{Empirical Results: Linkage Comparison and Cluster Profiling}
 
 \subsection{Comparison of Single, Complete, and Average Linkage (RQ2)}
-We constructed agglomerative dendrograms from the $263 \times 263$ Gower/Hamming matrix using \texttt{stats::hclust} under Single, Complete, and Average Linkage (Figure \ref{fig:dendro}). To quantify how faithfully each dendrogram preserves the original pairwise distances $d_H(\vec{X}_i, \vec{X}_j)$, we computed the \textbf{Cophenetic Correlation Coefficient} $r_{\text{coph}} = \text{Cor}(d_H, d_{\text{coph}})$, where $d_{\text{coph}}(i,j)$ is the dendrogram height at which respondents $i$ and $j$ first merge:
+We constructed agglomerative dendrograms from the $263 \times 263$ Gower/Hamming matrix using \texttt{stats::hclust} under Single, Complete, and Average Linkage (Figure \ref{fig:dendro}). To quantify how faithfully each dendrogram preserves the original pairwise distances $d_H(\vec{X}_i, \vec{X}_j)$, we computed the \textbf{Cophenetic Correlation Coefficient} $r_{\text{coph}} = \text{Cor}(d_H, d_{\text{coph}})$ (illustrated step-by-step in Figure~\ref{fig:diag_cophenetic}), where $d_{\text{coph}}(i,j)$ is the dendrogram height at which respondents $i$ and $j$ first merge:
 \begin{equation}
     r_{\text{coph}}^{\text{Average}} = \mathbf{0.6275} \quad > \quad r_{\text{coph}}^{\text{Complete}} = \mathbf{0.5253} \quad \gg \quad r_{\text{coph}}^{\text{Single}} = \mathbf{0.1449}.
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag04_cophenetic_calculation.png}
+    \caption{Step-by-step computation of the Cophenetic Correlation Coefficient ($r_{\text{coph}}$) comparing original pairwise Hamming distances ($d$) against dendrogram merge heights ($c$).}
+    \label{fig:diag_cophenetic}
+\end{figure}
 Average Linkage preserves the pairwise geometry substantially better than both alternatives. Examining the 262 merge heights reveals why Single and Complete Linkage struggle on discrete Hamming spaces:
 \begin{itemize}
     \item \textbf{Single Linkage Chaining:} Because $d_{12}^{\text{single}} = \min d(\vec{X}_i, \vec{Y}_j) \in \{0, 0.2, 0.4, 0.6\}$, out of $262$ merges, $46$ occur at $h=0.0$ (identical profiles), $154$ occur at $h=0.2$ (differing on 1 question), $61$ occur at $h=0.4$, and $1$ occurs at $h=0.6$. Because almost every student shares at least 3 or 4 answers with \textit{some} neighbor, Single Linkage chains $97.3\%$--$99.6\%$ of the entire student body into one massive cluster while peeling off singletons ($258/1/1/1/1/1$ at $K=6$).
@@ -284,7 +305,14 @@ Average Linkage preserves the pairwise geometry substantially better than both a
 \end{figure}
 
 \subsection{Determining the Optimal Number of Clusters and Stability Analysis (RQ3)}
-Table \ref{tab:linkage_eval} and Figure \ref{fig:silhouette} summarize partition quality across $K \in \{2, \dots, 8\}$ using the Average Silhouette Width $\bar{s} = \frac{1}{n}\sum_{i=1}^n \frac{b(i)-a(i)}{\max\{a(i), b(i)\}}$, negative silhouette percentage, and cluster size distribution.
+Table \ref{tab:linkage_eval} and Figure \ref{fig:silhouette} summarize partition quality across $K \in \{2, \dots, 8\}$ using the Average Silhouette Width $\bar{s} = \frac{1}{n}\sum_{i=1}^n \frac{b(i)-a(i)}{\max\{a(i), b(i)\}}$ (illustrated conceptually in Figure~\ref{fig:diag_silhouette}), negative silhouette percentage, and cluster size distribution.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag03_silhouette_explained.png}
+    \caption{Conceptual illustration of Silhouette Width $s(i)$ comparing within-cluster cohesion $a(i)$ against nearest-neighbor cluster separation $b(i)$.}
+    \label{fig:diag_silhouette}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -324,11 +352,18 @@ Under Average Linkage, $\bar{s}$ rises monotonically from $K=2$ ($0.1030$) to a 
     \label{fig:silhouette}
 \end{figure}
 
-To answer \textbf{RQ3}, we conducted two rigorous stability experiments (Figure \ref{fig:stability}):
+To answer \textbf{RQ3}, we conducted two rigorous stability experiments (Figure \ref{fig:stability}; see Figure~\ref{fig:diag_ari} for a worked illustration of the Adjusted Rand Index):
 \begin{enumerate}
     \item \textbf{Row-Order Permutation Sensitivity (100 Random Shuffles):} Because internal merges at $h \in \{0.0, 0.2, 0.4\}$ contain ties, randomly permuting respondent row order tests whether tie-breaking alters final cluster membership. Complete Linkage collapses under row shuffling ($\text{mean ARI} = 0.074$--$0.137$), whereas Average Linkage achieves substantially higher order stability, peaking at $K=5$ ($\text{ARI} = 0.573 \pm 0.103$) and $K=6$ ($\text{ARI} = 0.511 \pm 0.093$).
     \item \textbf{$80\%$ Subsampling Stability (100 Random Subsets of $n_{\text{sub}} = 210$ Without Replacement):} Comparing each subsample partition to the full-data partition via the Adjusted Rand Index confirms strong structural recovery for Average Linkage at $K=5$ ($\text{mean ARI} = 0.555, \text{median} = 0.574, \text{IQR} = 0.169$) and $K=6$ ($\text{mean ARI} = 0.522, \text{median} = 0.532, \text{IQR} = 0.108$).
 \end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag06_ari_example_v2.png}
+    \caption{Worked example illustrating how the Adjusted Rand Index (ARI) measures partition agreement while correcting for chance.}
+    \label{fig:diag_ari}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -407,7 +442,14 @@ The six clusters represent highly coherent behavioral archetypes:
 \end{figure}
 
 \subsection{External Validation with Weekly AI Usage (\texorpdfstring{$Q_6$}{Q6}) and Year of Study (\texorpdfstring{$S_4$}{S4})}
-Because differences on $Q_1$--$Q_5$ are internal to how the clusters were constructed, true validation requires testing whether the clusters differ on external variables withheld from the distance calculation ($Q_6$ and $S_4$). Table \ref{tab:ext_val} and Figure \ref{fig:ext_val} present both external validation analyses.
+Because differences on $Q_1$--$Q_5$ are internal to how the clusters were constructed, true validation requires testing whether the clusters differ on external variables withheld from the distance calculation ($Q_6$ and $S_4$). Figure~\ref{fig:diag_ext_val} illustrates the three statistical tests employed, and Table~\ref{tab:ext_val} and Figure~\ref{fig:ext_val} present the empirical results.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{/mnt/hdd-1tb/CSE-VGU/2026-2027/Elective-1/output/figures/diag05_external_validation_methods.png}
+    \caption{Overview of the three external validation tests applied to withheld variables: One-Way ANOVA and Kruskal--Wallis $H$ test for weekly AI usage ($Q_6$), and Monte Carlo $\chi^2$ test for Year of Study ($S_4$).}
+    \label{fig:diag_ext_val}
+\end{figure}
 
 \begin{table}[H]
 \centering

@@ -334,7 +334,7 @@ def build_linkage_diagram() -> None:
             line2 = "Problem: final 15 merges tie at 1.0 → depends on row order."
         elif kind == "average":
             line1 = "Rule: arithmetic average of all k × l cross-group pairs."
-            line2 = "Why it wins: breaks ties into 67 rational heights (r_coph = 0.62)."
+            line2 = "Why it wins: breaks ties into 66 rational heights (r_coph = 0.6275)."
         else:
             line1 = "Rule: distance between group means (or SSE variance for Ward)."
             line2 = "Why skipped: survey choices A–F are categories, not numbers."
@@ -432,7 +432,7 @@ def build_cophenetic_diagram() -> None:
     )
     s.append(
         '<text x="490" y="60" text-anchor="middle" font-size="13.5" fill="#475569">'
-        'Compare all M = n(n − 1)/2 = 33,930 student pairs before and after building the dendrogram (shown with 4 students)</text>'
+        'Compare all M = n(n − 1)/2 = 34,453 student pairs before and after building the dendrogram (shown with 4 students)</text>'
     )
 
     # 3 step cards
@@ -481,7 +481,7 @@ def build_cophenetic_diagram() -> None:
     s.append('<text x="174" y="366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1D4ED8">Lower triangle = unique pairs</text>')
     s.append('<rect x="44" y="380" width="260" height="44" rx="7" fill="#FFFFFF" stroke="#93C5FD"/>')
     s.append('<text x="174" y="399" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1E293B">d = [0.2, 0.8, 0.8, 0.8, 0.6, 0.4]</text>')
-    s.append('<text x="174" y="416" text-anchor="middle" font-size="10.5" fill="#475569">In our dataset: 33,930 values (mean = 0.8021)</text>')
+    s.append('<text x="174" y="416" text-anchor="middle" font-size="10.5" fill="#475569">In our dataset: 34,453 values (mean = 0.8016)</text>')
     s.append('<text x="174" y="446" text-anchor="middle" font-size="10.5" fill="#64748B">Upper triangle is identical, so we skip it</text>')
 
     # --- STEP 2: 4-student Dendrogram -> c ---
@@ -514,7 +514,7 @@ def build_cophenetic_diagram() -> None:
     s.append('<text x="490" y="366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0F766E">Height where each pair first meets</text>')
     s.append('<rect x="360" y="380" width="260" height="44" rx="7" fill="#FFFFFF" stroke="#5EEAD4"/>')
     s.append('<text x="490" y="399" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1E293B">c = [0.2, 0.75, 0.75, 0.75, 0.75, 0.4]</text>')
-    s.append('<text x="490" y="416" text-anchor="middle" font-size="10.5" fill="#475569">Same 33,930 pairs, in exact same order</text>')
+    s.append('<text x="490" y="416" text-anchor="middle" font-size="10.5" fill="#475569">Same 34,453 pairs, in exact same order</text>')
     s.append('<text x="490" y="446" text-anchor="middle" font-size="10.5" fill="#64748B">In R: cophenetic(hc_average)</text>')
 
     # --- STEP 3: Scatter + Pearson Correlation ---
@@ -539,8 +539,8 @@ def build_cophenetic_diagram() -> None:
 
     s.append('<text x="806" y="340" text-anchor="middle" font-size="12" font-weight="700" fill="#1E293B">Pearson Correlation: cor(d, c)</text>')
     s.append('<rect x="676" y="354" width="260" height="58" rx="8" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.4"/>')
-    s.append('<text x="806" y="376" text-anchor="middle" font-size="13" font-weight="700" fill="#047857">Average (UPGMA): r_coph = 0.6221</text>')
-    s.append('<text x="806" y="396" text-anchor="middle" font-size="11" fill="#334155">Complete: 0.5290   |   Single: 0.1409</text>')
+    s.append('<text x="806" y="376" text-anchor="middle" font-size="13" font-weight="700" fill="#047857">Average (UPGMA): r_coph = 0.6275</text>')
+    s.append('<text x="806" y="396" text-anchor="middle" font-size="11" fill="#334155">Complete: 0.5253   |   Single: 0.1449</text>')
     s.append('<text x="806" y="434" text-anchor="middle" font-size="11" font-weight="600" fill="#334155">R: cor(dist_hamming, cophenetic(hc))</text>')
 
     write_and_render("diag04_cophenetic_calculation", s)
@@ -573,13 +573,13 @@ def build_external_val_diagram() -> None:
     s.append('<rect x="44" y="128" width="260" height="218" rx="8" fill="#FFFFFF" stroke="#BFDBFE"/>')
     # Overall mean dashed line
     s.append('<line x1="56" y1="226" x2="292" y2="226" stroke="#64748B" stroke-width="1.5" stroke-dasharray="5,4"/>')
-    s.append('<text x="290" y="219" text-anchor="end" font-size="10" font-weight="700" fill="#475569">Overall mean = 4.09</text>')
+    s.append('<text x="290" y="219" text-anchor="end" font-size="10" font-weight="700" fill="#475569">Overall mean = 4.10</text>')
 
     # 3 sample cluster columns: C5 (low, y=268), C3 (mid, y=232), C2 (high, y=190)
     anova_cols = [
         (96, 268, "C5", "2.85", "#16A34A", [244, 260, 272, 286, 296]),
-        (174, 232, "C3", "3.90", "#EA580C", [198, 220, 234, 248, 268]),
-        (252, 190, "C2", "4.63", "#7C3AED", [162, 178, 192, 204, 220]),
+        (174, 232, "C3", "3.89", "#EA580C", [198, 220, 234, 248, 268]),
+        (252, 190, "C2", "4.67", "#7C3AED", [162, 178, 192, 204, 220]),
     ]
     for x, my, lbl, mval, col, pts_y in anova_cols:
         # Spread whisker (within-group noise)
@@ -599,7 +599,7 @@ def build_external_val_diagram() -> None:
     s.append('<text x="174" y="370" text-anchor="middle" font-size="12" font-weight="700" fill="#1E293B">F = Between-group / Within-group</text>')
     s.append('<text x="174" y="390" text-anchor="middle" font-size="11.5" fill="#475569">Compares cluster means (assumes bell curve)</text>')
     s.append('<rect x="44" y="406" width="260" height="48" rx="7" fill="#FFFFFF" stroke="#93C5FD"/>')
-    s.append('<text x="174" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#1D4ED8">F(5, 255) = 2.957,  p = 0.0130</text>')
+    s.append('<text x="174" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#1D4ED8">F(5, 257) = 3.148,  p = 0.0089</text>')
     s.append('<text x="174" y="445" text-anchor="middle" font-size="10.5" fill="#475569">p &lt; 0.05 → AI usage means differ</text>')
 
     # --- PANEL 2: Kruskal-Wallis (Ranks) ---
@@ -631,7 +631,7 @@ def build_external_val_diagram() -> None:
     s.append('<text x="490" y="370" text-anchor="middle" font-size="12" font-weight="700" fill="#1E293B">Non-parametric (no bell curve needed)</text>')
     s.append('<text x="490" y="390" text-anchor="middle" font-size="11.5" fill="#475569">Uses ranks instead of raw values (robust)</text>')
     s.append('<rect x="360" y="406" width="260" height="48" rx="7" fill="#FFFFFF" stroke="#5EEAD4"/>')
-    s.append('<text x="490" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#0F766E">H = 14.144,  df = 5,  p = 0.0147</text>')
+    s.append('<text x="490" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#0F766E">H = 15.023,  df = 5,  p = 0.0103</text>')
     s.append('<text x="490" y="445" text-anchor="middle" font-size="10.5" fill="#475569">p &lt; 0.05 → confirms ANOVA result</text>')
 
     # --- PANEL 3: Chi-Square + Monte Carlo ---
@@ -655,13 +655,13 @@ def build_external_val_diagram() -> None:
     # Real chi-square spike far to the right
     s.append('<line x1="898" y1="242" x2="898" y2="312" stroke="#DC2626" stroke-width="2.6"/>')
     s.append('<circle cx="898" cy="242" r="4.5" fill="#DC2626"/>')
-    s.append('<text x="894" y="236" text-anchor="end" font-size="10" font-weight="700" fill="#DC2626">Our χ² = 76.66</text>')
+    s.append('<text x="894" y="236" text-anchor="end" font-size="10" font-weight="700" fill="#DC2626">Our χ² = 77.05</text>')
     s.append('<text x="898" y="328" text-anchor="middle" font-size="9.5" font-weight="700" fill="#DC2626">0 / 10,000 ≥ this</text>')
 
     s.append('<text x="806" y="370" text-anchor="middle" font-size="12" font-weight="700" fill="#1E293B">χ² = Σ (Observed − Expected)² / Expected</text>')
     s.append('<text x="806" y="390" text-anchor="middle" font-size="11.5" fill="#475569">Shuffles fix small-cell bias (12 Grad students)</text>')
     s.append('<rect x="676" y="406" width="260" height="48" rx="7" fill="#FFFFFF" stroke="#FDBA74"/>')
-    s.append('<text x="806" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#C2410C">χ² = 76.659,  p = 0.0001</text>')
+    s.append('<text x="806" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#C2410C">χ² = 77.045,  p = 0.0001</text>')
     s.append('<text x="806" y="445" text-anchor="middle" font-size="10.5" fill="#475569">p &lt; 0.05 → study year strongly linked</text>')
 
     write_and_render("diag05_external_validation_methods", s)
